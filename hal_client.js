@@ -8,18 +8,20 @@
   HAL.Router = Backbone.Router.extend({
     initialize: function(opts) {
       var self = this;
+      opts = opts || {};
 
       $.ajaxSetup({ headers: { 'Accept': 'application/hal+json, application/json, */*; q=0.01' } });
 
       this.browser = new HAL.Views.Browser({ el: $('#browser') });
       this.inspectorView = new HAL.Views.Inspector({ el: $('#inspector') });
+
       this.browser.bind('show-docs', function(e) {
         self.inspectorView.showDocs(e);
       });
       this.browser.bind('render-resource', function(e) {
         self.inspectorView.showRawResource(e);
       });
-      opts = opts || {};
+
       var entry = opts.entryPoint || '/';
       window.location.hash = entry;
     },

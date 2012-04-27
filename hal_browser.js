@@ -22,8 +22,10 @@
         self.inspectorView.showRawResource(e);
       });
 
-      var entry = opts.entryPoint || '/';
-      window.location.hash = entry;
+      if (window.location.hash === '') {
+        var entry = opts.entryPoint || '/';
+        window.location.hash = entry;
+      }
     },
 
     routes: {

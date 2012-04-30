@@ -47,26 +47,26 @@
               <% if ($.isArray(obj)) { %>
                 <% _.each(obj, function(link, i) { %>
                   <tr>
-                    <td><strong><%= rel %></strong></td>
+                    <td><strong><%= HAL.truncateIfUrl(rel) %></strong></td>
                     <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
                     <td>
-                    <% if (rel.match(HAL.urlRegex)) { %>
+                    <% if (HAL.isURL(rel)) { %>
                       <a class="dox" href="<%= rel %>">[docs]</a>
                     <% } %>
                     </td>
-                    <td><a href="#<%= link.href %>">=&gt;</a></td>
+                    <td><a class="link" href="<%= link.href %>">=&gt;</a></td>
                   </tr>
                 <% }); %>
               <% } else { %>
                 <tr>
-                  <td><strong><%= rel %></strong></td>
+                  <td><strong><%= HAL.truncateIfUrl(rel) %></strong></td>
                   <td><%= obj.name || '' %></td>
                   <td>
-                  <% if (rel.match(HAL.urlRegex)) { %>
+                  <% if (HAL.isUrl(rel)) { %>
                     <a class="dox" href="<%= rel %>">[docs]</a>
                   <% } %>
                   </td>
-                  <td><a href="#<%= obj.href %>">=&gt;</a></td>
+                  <td><a class="link" href="<%= obj.href %>">=&gt;</a></td>
                 </tr>
               <% } %>
             <% }) %>
@@ -111,26 +111,26 @@
             <% if ($.isArray(obj)) { %>
               <% _.each(obj, function(link, i) { %>
                 <tr>
-                  <td><strong><%= rel %></strong></td>
+                  <td><strong><%= HAL.truncateIfUrl(rel) %></strong></td>
                   <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
                   <td>
-                  <% if (rel.match(HAL.urlRegex)) { %>
+                  <% if (HAL.isUrl(rel)) { %>
                     <a class="dox" href="<%= rel %>">[docs]</a>
                   <% } %>
                   </td>
-                  <td><a href="#<%= link.href %>">=&gt;</a></td>
+                  <td><a class="link" href="<%= link.href %>">=&gt;</a></td>
                 </tr>
               <% }); %>
             <% } else { %>
               <tr>
-                <td><strong><%= rel %></strong></td>
+                <td><strong><%= HAL.truncateIfUrl(rel) %></strong></td>
                 <td><%= obj.name || '' %></td>
                 <td>
-                <% if (rel.match(HAL.urlRegex)) { %>
+                <% if (HAL.isUrl(rel)) { %>
                   <a class="dox" href="<%= rel %>">[docs]</a>
                 <% } %>
                 </td>
-                <td><a href="#<%= obj.href %>">=&gt;</a></td>
+                <td><a class="link" href="<%= obj.href %>">=&gt;</a></td>
               </tr>
             <% } %>
           <% }) %>

@@ -95,10 +95,12 @@
 
   HAL.Views.Resource = Backbone.View.extend({
     initialize: function(opts) {
+      _.bindAll(this, 'followLink');
       _.bindAll(this, 'showDocs');
     },
 
     events: {
+      'click .links a.link': 'followLink',
       'click .links a.dox': 'showDocs'
     },
 
@@ -115,6 +117,11 @@
 
     showFailedRequest: function(jqxhr) {
       this.$el.html(this.failedRequestTemplate({ jqxhr: jqxhr }));
+    },
+
+    followLink: function(e) {
+      e.preventDefault();
+      window.location.hash = $(e.target).attr('href');
     },
 
     showDocs: function(e) {
@@ -170,7 +177,15 @@
     }
   });
 
-  HAL.urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  HAL.isUrl = function(str) {
+    var urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    return str.match(urlRegex);
+  };
+
+  HAL.truncateIfUrl = function(str) {
+    var replaceRegex = /(http|https):\/\/([^\/]*)\//;
+    return str.replace(replaceRegex, '.../');
+  };
 
   // make HAL object global
   window.HAL = HAL;

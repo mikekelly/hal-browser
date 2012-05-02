@@ -96,15 +96,15 @@
   HAL.Views.Resource = Backbone.View.extend({
     initialize: function(opts) {
       _.bindAll(this, 'followLink');
-      _.bindAll(this, 'showCreateNonGetRequestPanel');
-      _.bindAll(this, 'showUriQueryPanel');
+      _.bindAll(this, 'showCreateNonGetRequestDialog');
+      _.bindAll(this, 'showUriQueryDialog');
       _.bindAll(this, 'showDocs');
     },
 
     events: {
       'click .links a.follow': 'followLink',
-      'click .links a.non-get': 'showCreateNonGetRequestPanel',
-      'click .links a.query': 'showUriQueryPanel',
+      'click .links a.non-get': 'showCreateNonGetRequestDialog',
+      'click .links a.query': 'showUriQueryDialog',
       'click .links a.dox': 'showDocs'
     },
 
@@ -128,12 +128,22 @@
       window.location.hash = $(e.target).attr('href');
     },
 
-    showCreateNonGetRequestPanel: function(e) {
+    showCreateNonGetRequestDialog: function(e) {
       e.preventDefault();
+      alert('non-get requests coming soon.');
     },
 
-    showUriQueryPanel: function(e) {
+    showUriQueryDialog: function(e) {
       e.preventDefault();
+
+      var d = new HAL.Views.QueryUriDialog({
+        href: $(e.target).attr('href')
+      }).render();
+
+      d.$el.dialog({
+        title: 'Query URI Template',
+        width: 400
+      });
     },
 
     showDocs: function(e) {
@@ -187,6 +197,52 @@
     showRawResource: function(e) {
       this.$('.panel').html('<pre>' + JSON.stringify(e.resource, null, 2) + '</pre>');
     }
+  });
+
+  HAL.Views.QueryUriDialog = Backbone.View.extend({
+    initialize: function(opts) {
+      this.href = opts.href;
+      this.uriTemplate = uritemplate(this.href);
+      _.bindAll(this, 'submitQuery');
+      _.bindAll(this, 'renderPreview');
+    },
+
+    events: {
+      'submit form': 'submitQuery',
+      'keyup textarea': 'renderPreview',
+      'change textarea': 'renderPreview'
+    },
+
+    submitQuery: function(e) {
+      e.preventDefault();
+      var input;
+      try {
+        input = JSON.parse(this.$('textarea').val());
+      } catch(err) {
+        input = {};
+      }
+      this.$el.dialog('close');
+      window.location.hash = this.uriTemplate.expand(input);
+    },
+
+    renderPreview: function(e) {
+      var input, result;
+      try {
+        input = JSON.parse($(e.target).val());
+        result = this.uriTemplate.expand(input);
+      } catch (err) {
+        result = 'Invalid json input';
+      }
+      this.$('.preview').html(result);
+    },
+
+    render: function() {
+      this.$el.html(this.template({ href: this.href }));
+      this.$('textarea').trigger('keyup');
+      return this;
+    },
+
+    template: _.template($('#query-uri-template').html())
   });
 
   HAL.isUrl = function(str) {

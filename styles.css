@@ -231,14 +231,12 @@ table {
 th {
   font-size: 14px;
   font-weight: normal;
-  color: #039;
   border-bottom: 2px solid #6678B1;
   padding: 8px 12px;
 }
 
 td {
   border-bottom: 1px solid #CCC;
-  color: #669;
   padding: 6px 8px;
 }
 

@@ -96,11 +96,15 @@
   HAL.Views.Resource = Backbone.View.extend({
     initialize: function(opts) {
       _.bindAll(this, 'followLink');
+      _.bindAll(this, 'showCreateNonGetRequestPanel');
+      _.bindAll(this, 'showUriQueryPanel');
       _.bindAll(this, 'showDocs');
     },
 
     events: {
-      'click .links a.link': 'followLink',
+      'click .links a.follow': 'followLink',
+      'click .links a.non-get': 'showCreateNonGetRequestPanel',
+      'click .links a.query': 'showUriQueryPanel',
       'click .links a.dox': 'showDocs'
     },
 
@@ -122,6 +126,14 @@
     followLink: function(e) {
       e.preventDefault();
       window.location.hash = $(e.target).attr('href');
+    },
+
+    showCreateNonGetRequestPanel: function(e) {
+      e.preventDefault();
+    },
+
+    showUriQueryPanel: function(e) {
+      e.preventDefault();
     },
 
     showDocs: function(e) {

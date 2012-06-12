@@ -67,9 +67,9 @@
                     <% } %>
                     </td>
                     <td>
-                      <% if (link.templated) { %><a class="query" href="<%= link.href %>" title="Query URI template">?</a> -<% } %>
+                      <% if (link.templated) { %><a class="query" href="<%= link.href %>" title="Query URI template">?</a> -<% } else { %>
                       <!-- <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a> - -->
-                      <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a>
+                      <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a><% } %>
                     </td>
                   </tr>
                 <% }); %>
@@ -83,9 +83,9 @@
                   <% } %>
                   </td>
                   <td>
-                    <% if (obj.templated) { %><a class="query" href="<%= obj.href %>" title="Query URI template">?</a> -<% } %>
+                    <% if (obj.templated) { %><a class="query" href="<%= obj.href %>" title="Query URI template">?</a> -<% } else { %>
                     <!-- <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a> - -->
-                    <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a>
+                    <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a><% } %>
                   </td>
                 </tr>
               <% } %>
@@ -139,9 +139,9 @@
                   <% } %>
                   </td>
                   <td>
-                    <% if (link.templated) { %><a class="query" href="<%= link.href %>" title="Query URI template">?</a> -<% } %>
+                    <% if (link.templated) { %><a class="query" href="<%= link.href %>" title="Query URI template">?</a> -<% } else { %>
                     <!-- <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a> - -->
-                    <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a>
+                    <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a><% } %>
                   </td>
                 </tr>
               <% }); %>
@@ -155,9 +155,9 @@
                 <% } %>
                 </td>
                 <td>
-                  <% if (obj.templated) { %><a class="query" href="<%= obj.href %>" title="Query URI template">?</a> -<% } %>
+                  <% if (obj.templated) { %><a class="query" href="<%= obj.href %>" title="Query URI template">?</a> -<% } else { %>
                   <!--<a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a> - -->
-                  <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a>
+                  <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a><% } %>
                 </td>
               </tr>
             <% } %>

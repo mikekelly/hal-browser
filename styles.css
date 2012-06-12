@@ -220,6 +220,8 @@ td { vertical-align: top; }
    Author: Mike Kelly <mikekelly321@gmail.com>
    ========================================================================== */
 
+a { text-decoration: none }
+
 pre { font-size: 0.8em; }
 
 table {

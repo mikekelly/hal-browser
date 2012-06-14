@@ -96,14 +96,14 @@
   HAL.Views.Resource = Backbone.View.extend({
     initialize: function(opts) {
       _.bindAll(this, 'followLink');
-      _.bindAll(this, 'showCreateNonGetRequestDialog');
+      _.bindAll(this, 'showNonSafeRequestDialog');
       _.bindAll(this, 'showUriQueryDialog');
       _.bindAll(this, 'showDocs');
     },
 
     events: {
       'click .links a.follow': 'followLink',
-      'click .links a.non-get': 'showCreateNonGetRequestDialog',
+      'click .links a.non-get': 'showNonSafeRequestDialog',
       'click .links a.query': 'showUriQueryDialog',
       'click .links a.dox': 'showDocs'
     },
@@ -128,11 +128,6 @@
       window.location.hash = $(e.target).attr('href');
     },
 
-    showCreateNonGetRequestDialog: function(e) {
-      e.preventDefault();
-      alert('non-get requests coming soon.');
-    },
-
     showUriQueryDialog: function(e) {
       e.preventDefault();
 
@@ -143,6 +138,19 @@
       d.$el.dialog({
         title: 'Query URI Template',
         width: 400
+      });
+    },
+
+    showNonSafeRequestDialog: function(e) {
+      e.preventDefault();
+
+      var d = new HAL.Views.NonSafeRequestDialog({
+        href: $(e.target).attr('href')
+      }).render();
+
+      d.$el.dialog({
+        title: 'Non Safe Request',
+        width: 500
       });
     },
 
@@ -243,6 +251,51 @@
     },
 
     template: _.template($('#query-uri-template').html())
+  });
+
+  HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
+    initialize: function(opts) {
+      this.href = opts.href;
+      this.uriTemplate = uritemplate(this.href);
+      _.bindAll(this, 'submitQuery');
+    },
+
+    events: {
+      'submit form': 'submitQuery'
+    },
+
+    submitQuery: function(e) {
+      e.preventDefault();
+      var input;
+      this.$el.dialog('close');
+      var header_lines = this.$('.headers').value.split("\n+");
+      var headers = {};
+      _.each(header_lines, function(line) {
+        var parts = line.split(':');
+        var name = parts[0].trim();
+        var value = parts[1].trim();
+        headers[name] = value;
+      });
+      console.log('headers', headers);
+      $.ajax({
+        url: this.href,
+        method: null,
+        headers: headers,
+        data: null
+      }).done(function(response) {
+        // do someting
+      }).fail(function(response) {
+        // take fail action
+      };
+      //window.location.hash = this.uriTemplate.expand(input);
+    },
+
+    render: function() {
+      this.$el.html(this.template({ href: this.href }));
+      return this;
+    },
+
+    template: _.template($('#non-safe-request-template').html())
   });
 
   HAL.isUrl = function(str) {

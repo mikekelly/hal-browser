@@ -5,8 +5,17 @@
     currentDocument: {}
   };
 
-  HAL.Resourcer = function(opts) {
+  HAL.client = function(opts) {
     this.vent = opts.vent;
+    this.get = function(url) {
+      var self = this;
+      this.vent.trigger('location-change', { url: url });
+      var jqxhr = $.getJSON(url, function(resource) {
+        self.vent.trigger('response', { resource: resource });
+      }).error(function() {
+        self.vent.trigger('fail-response', { jqxhr: jqxhr });
+      });
+    };
   };
 
   HAL.Router = Backbone.Router.extend({
@@ -15,9 +24,12 @@
       opts = opts || {};
 
       var vent = _.extend({}, Backbone.Events);
+
       vent.bind('response', function(e) {
         window.HAL.currentDocument = e.resource || {};
       });
+
+      this.client = new HAL.client({ vent: vent });
 
       $.ajaxSetup({ headers: { 'Accept': 'application/hal+json, application/json, */*; q=0.01' } });
 
@@ -35,8 +47,10 @@
     },
 
     resourceRoute: function(url) {
-      url = location.hash.slice(1); // router removes preceding slash so get it manually
-      this.browser.get(url);
+      url = location.hash.slice(1);
+      if (url.slice(0,8) !== 'NON-GET:') {
+        this.client.get(url);
+      }
     }
   });
 
@@ -78,21 +92,6 @@
       this.vent = opts.vent;
       this.locationBar = new HAL.Views.LocationBar({ el: this.$('#location-bar'), vent: this.vent });
       this.resourceView = new HAL.Views.Resource({ el: this.$('#current-resource'), vent: this.vent });
-    },
-
-    onRequest: function(e) {
-
-    },
-
-    get: function(url) {
-      var self = this;
-      this.vent.trigger('location-change', { url: url });
-      var jqxhr = $.getJSON(url, function(resource) {
-        self.vent.trigger('response', { resource: resource });
-      }).error(function() {
-        self.vent.trigger('fail-response', { jqxhr: jqxhr });
-        self.vent.trigger('response', { resource: null });
-      });
     }
   });
 
@@ -108,6 +107,7 @@
         self.render(new HAL.Models.Resource(e.resource));
       });
       this.vent.bind('fail-response', function(e) {
+        self.vent.trigger('response', { resource: null });
         self.showFailedRequest(e.jqxhr);
       });
     },
@@ -150,13 +150,15 @@
         title: 'Query URI Template',
         width: 400
       });
+      window.foo = d;
     },
 
     showNonSafeRequestDialog: function(e) {
       e.preventDefault();
 
       var d = new HAL.Views.NonSafeRequestDialog({
-        href: $(e.target).attr('href')
+        href: $(e.target).attr('href'),
+        vent: this.vent
       }).render();
 
       d.$el.dialog({
@@ -226,12 +228,10 @@
     },
 
     showDocs: function(e) {
-      console.log('hi-show', e);
       this.$('.panel').html('<iframe src=' + e.url + '></iframe>');
     },
 
     showRawResource: function(e) {
-      console.log('hi', e);
       this.$('.panel').html('<pre>' + JSON.stringify(e.resource, null, 2) + '</pre>');
     }
   });
@@ -285,6 +285,7 @@
   HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
     initialize: function(opts) {
       this.href = opts.href;
+      this.vent = opts.vent;
       this.uriTemplate = uritemplate(this.href);
       _.bindAll(this, 'submitQuery');
     },
@@ -309,20 +310,24 @@
 
     submitQuery: function(e) {
       e.preventDefault();
+      var self = this;
       var headers = this.headers();
       var method = this.$('.method').val();
       var body = this.$('.body').val();
-      $.ajax({
+      var jqxhr = $.ajax({
         url: this.href,
+        dataType: 'json',
         type: method,
         headers: headers,
         data: body
       }).done(function(response) {
-        // do someting
+        self.vent.trigger('response', { resource: response });
       }).fail(function(response) {
-        // take fail action
+        self.vent.trigger('fail-response', { jqxhr: jqxhr });
+      }).always(function() {
+        self.vent.trigger('location-change', { url: self.href });
+        window.location.hash = 'NON-GET:' + self.href;
       });
-      //window.location.hash = this.uriTemplate.expand(input);
       this.$el.dialog('close');
     },
 

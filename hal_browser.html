@@ -65,7 +65,8 @@
                 <th>rel</th>
                 <th>name / index</th>
                 <th>docs</th>
-                <th>URI</th>
+                <th>GET</th>
+                <th>NON-GET</th>
               </tr>
             </thead>
             <tbody>
@@ -81,9 +82,14 @@
                     <% } %>
                     </td>
                     <td>
-                      <% if (link.templated === true) { %><a class="query" href="<%= link.href %>" title="Query URI template">?</a><% } else { %>
-                      <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a><% } %>
-                      - <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a>
+                      <% if (link.templated === true) { %>
+                        <a class="query" href="<%= link.href %>" title="Query URI template">?</a>
+                      <% } else { %>
+                        <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a>
+                      <% } %>
+                    </td>
+                    <td>
+                      <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a>
                     </td>
                   </tr>
                 <% }); %>
@@ -97,9 +103,14 @@
                   <% } %>
                   </td>
                   <td>
-                    <% if (obj.templated === true) { %><a class="query" href="<%= obj.href %>" title="Query URI template">?</a><% } else { %>
-                    <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a><% } %>
-                    - <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a>
+                    <% if (obj.templated === true) { %>
+                      <a class="query" href="<%= obj.href %>" title="Query URI template">?</a>
+                    <% } else { %>
+                      <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a>
+                    <% } %>
+                  </td>
+                  <td>
+                    <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a>
                   </td>
                 </tr>
               <% } %>
@@ -137,7 +148,8 @@
               <th>rel</th>
               <th>name / index</th>
               <th>docs</th>
-              <th>follow</th>
+              <th>GET</th>
+              <th>NON-GET</th>
             </tr>
           </thead>
           <tbody>
@@ -153,9 +165,14 @@
                   <% } %>
                   </td>
                   <td>
-                    <% if (link.templated === true) { %><a class="query" href="<%= link.href %>" title="Query URI template">?</a><% } else { %>
-                    <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a><% } %>
-                    - <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a>
+                    <% if (link.templated === true) { %>
+                      <a class="query" href="<%= link.href %>" title="Query URI template">?</a>
+                    <% } else { %>
+                      <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a>
+                    <% } %>
+                  </td>
+                  <td>
+                    <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a>
                   </td>
                 </tr>
               <% }); %>
@@ -169,9 +186,14 @@
                 <% } %>
                 </td>
                 <td>
-                  <% if (obj.templated === true) { %><a class="query" href="<%= obj.href %>" title="Query URI template">?</a><% } else { %>
-                  <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a><% } %>
-                  - <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a>
+                  <% if (obj.templated === true) { %>
+                    <a class="query" href="<%= obj.href %>" title="Query URI template">?</a>
+                  <% } else { %>
+                    <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a>
+                  <% } %>
+                </td>
+                <td>
+                  <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a>
                 </td>
               </tr>
             <% } %>

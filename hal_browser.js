@@ -4,23 +4,20 @@
     Views: {}
   };
 
+  HAL.Resourcer = function(opts) {
+    this.vent = opts.vent;
+  };
 
   HAL.Router = Backbone.Router.extend({
     initialize: function(opts) {
       var self = this;
+      var vent = _.extend({}, Backbone.Events);
       opts = opts || {};
 
       $.ajaxSetup({ headers: { 'Accept': 'application/hal+json, application/json, */*; q=0.01' } });
 
-      this.browser = new HAL.Views.Browser({ el: $('#browser') });
-      this.inspectorView = new HAL.Views.Inspector({ el: $('#inspector') });
-
-      this.browser.bind('show-docs', function(e) {
-        self.inspectorView.showDocs(e);
-      });
-      this.browser.bind('render-resource', function(e) {
-        self.inspectorView.showRawResource(e);
-      });
+      this.browser = new HAL.Views.Browser({ el: $('#browser'), vent: vent });
+      this.inspectorView = new HAL.Views.Inspector({ el: $('#inspector'), vent: vent });
 
       if (window.location.hash === '') {
         var entry = opts.entryPoint || '/';
@@ -40,9 +37,7 @@
 
   HAL.Models.Resource = Backbone.Model.extend({
     initialize: function(representation) {
-      if(representation._links !== undefined) {
-        this.links = representation._links;
-      }
+      this.links = representation._links;
       if(representation._embedded !== undefined) {
         this.embeddedResources = this.buildEmbeddedResources(representation._embedded);
       }
@@ -73,11 +68,15 @@
   });
 
   HAL.Views.Browser = Backbone.View.extend({
-    initialize: function() {
+    initialize: function(opts) {
       var self = this;
-      this.locationBar = new HAL.Views.LocationBar({ el: this.$('#location-bar') });
-      this.resourceView = new HAL.Views.Resource({ el: this.$('#current-resource') });
-      this.resourceView.bind('show-docs', function(e) { self.trigger('show-docs', e); });
+      this.vent = opts.vent;
+      this.locationBar = new HAL.Views.LocationBar({ el: this.$('#location-bar'), vent: this.vent });
+      this.resourceView = new HAL.Views.Resource({ el: this.$('#current-resource'), vent: this.vent });
+    },
+
+    onRequest: function(e) {
+
     },
 
     get: function(url) {
@@ -85,16 +84,17 @@
       this.locationBar.setLocation(url);
       var jqxhr = $.getJSON(url, function(resource) {
         self.resourceView.render(new HAL.Models.Resource(resource));
-        self.trigger('render-resource', { resource: resource });
+        self.vent.trigger('render-resource', { resource: resource });
       }).error(function() {
         self.resourceView.showFailedRequest(jqxhr);
-        self.trigger('render-resource', { resource: null });
+        self.vent.trigger('render-resource', { resource: null });
       });
     }
   });
 
   HAL.Views.Resource = Backbone.View.extend({
     initialize: function(opts) {
+      this.vent = opts.vent;
       _.bindAll(this, 'followLink');
       _.bindAll(this, 'showNonSafeRequestDialog');
       _.bindAll(this, 'showUriQueryDialog');
@@ -156,7 +156,7 @@
 
     showDocs: function(e) {
       e.preventDefault();
-      this.trigger('show-docs', { url: $(e.target).attr('href') });
+      this.vent.trigger('show-docs', { url: $(e.target).attr('href') });
     },
 
     renderEmbeddedResources: function(embeddedResources) {
@@ -198,11 +198,21 @@
   });
 
   HAL.Views.Inspector = Backbone.View.extend({
+    initialize: function(opts) {
+      this.vent = opts.vent;
+      _.bindAll(this, 'showDocs');
+      _.bindAll(this, 'showRawResource');
+      this.vent.bind('show-docs', this.showDocs);
+      this.vent.bind('render-resource', this.showRawResource);
+    },
+
     showDocs: function(e) {
+      console.log('hi-show', e);
       this.$('.panel').html('<iframe src=' + e.url + '></iframe>');
     },
 
     showRawResource: function(e) {
+      console.log('hi', e);
       this.$('.panel').html('<pre>' + JSON.stringify(e.resource, null, 2) + '</pre>');
     }
   });
@@ -264,30 +274,37 @@
       'submit form': 'submitQuery'
     },
 
-    submitQuery: function(e) {
-      e.preventDefault();
-      var input;
-      this.$el.dialog('close');
-      var header_lines = this.$('.headers').value.split("\n+");
+    headers: function() {
+      var header_lines = this.$('.headers').val().split("\n");
       var headers = {};
       _.each(header_lines, function(line) {
         var parts = line.split(':');
-        var name = parts[0].trim();
-        var value = parts[1].trim();
-        headers[name] = value;
+        if (parts.length == 2) {
+          var name = parts[0].trim();
+          var value = parts[1].trim();
+          headers[name] = value;
+        }
       });
-      console.log('headers', headers);
+      return headers;
+    },
+
+    submitQuery: function(e) {
+      e.preventDefault();
+      var headers = this.headers();
+      var method = this.$('.method').val();
+      var body = this.$('.body').val();
       $.ajax({
         url: this.href,
-        method: null,
+        type: method,
         headers: headers,
-        data: null
+        data: body
       }).done(function(response) {
         // do someting
       }).fail(function(response) {
         // take fail action
-      };
+      });
       //window.location.hash = this.uriTemplate.expand(input);
+      this.$el.dialog('close');
     },
 
     render: function() {

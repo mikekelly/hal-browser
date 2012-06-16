@@ -40,10 +40,12 @@
   <script id="non-safe-request-template" type="text/template">
     <form id="non-safe" action="<%= href %>">
       <p>Target URI: <%= href %></pre>
+      <p>Method:</p>
+      <input name="method" class="method" />
       <p>Headers:</p>
-      <textarea class="headers" style="width: 100%; height: 300px"></textarea>
+      <textarea name="headers" class="headers" style="width: 100%; height: 300px"></textarea>
       <p>Body:</p>
-      <textarea class="body" style="width: 100%; height: 300px"></textarea>
+      <textarea name="body" class="body" style="width: 100%; height: 300px"></textarea>
       <input type="submit" value="Follow URI" />
     </form>
   </script>

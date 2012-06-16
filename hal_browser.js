@@ -1,7 +1,8 @@
 (function() {
   var HAL = {
     Models: {},
-    Views: {}
+    Views: {},
+    currentDocument: {}
   };
 
   HAL.Resourcer = function(opts) {
@@ -11,8 +12,12 @@
   HAL.Router = Backbone.Router.extend({
     initialize: function(opts) {
       var self = this;
-      var vent = _.extend({}, Backbone.Events);
       opts = opts || {};
+
+      var vent = _.extend({}, Backbone.Events);
+      vent.bind('response', function(e) {
+        window.HAL.currentDocument = e.resource || {};
+      });
 
       $.ajaxSetup({ headers: { 'Accept': 'application/hal+json, application/json, */*; q=0.01' } });
 
@@ -81,24 +86,30 @@
 
     get: function(url) {
       var self = this;
-      this.locationBar.setLocation(url);
+      this.vent.trigger('location-change', { url: url });
       var jqxhr = $.getJSON(url, function(resource) {
-        self.resourceView.render(new HAL.Models.Resource(resource));
-        self.vent.trigger('render-resource', { resource: resource });
+        self.vent.trigger('response', { resource: resource });
       }).error(function() {
-        self.resourceView.showFailedRequest(jqxhr);
-        self.vent.trigger('render-resource', { resource: null });
+        self.vent.trigger('fail-response', { jqxhr: jqxhr });
+        self.vent.trigger('response', { resource: null });
       });
     }
   });
 
   HAL.Views.Resource = Backbone.View.extend({
     initialize: function(opts) {
+      var self = this;
       this.vent = opts.vent;
       _.bindAll(this, 'followLink');
       _.bindAll(this, 'showNonSafeRequestDialog');
       _.bindAll(this, 'showUriQueryDialog');
       _.bindAll(this, 'showDocs');
+      this.vent.bind('response', function(e) {
+        self.render(new HAL.Models.Resource(e.resource));
+      });
+      this.vent.bind('fail-response', function(e) {
+        self.showFailedRequest(e.jqxhr);
+      });
     },
 
     events: {
@@ -190,6 +201,14 @@
   });
 
   HAL.Views.LocationBar = Backbone.View.extend({
+    initialize: function(opts) {
+      var self = this;
+      this.vent = opts.vent;
+      this.vent.bind('location-change', function(e) {
+        self.setLocation(e.url);
+      });
+    },
+
     setLocation: function(url) {
       this.address.html(url);
     },
@@ -203,7 +222,7 @@
       _.bindAll(this, 'showDocs');
       _.bindAll(this, 'showRawResource');
       this.vent.bind('show-docs', this.showDocs);
-      this.vent.bind('render-resource', this.showRawResource);
+      this.vent.bind('response', this.showRawResource);
     },
 
     showDocs: function(e) {
@@ -325,6 +344,5 @@
     return str.replace(replaceRegex, '.../');
   };
 
-  // make HAL object global
   window.HAL = HAL;
 })();

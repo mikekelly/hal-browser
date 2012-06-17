@@ -1,5 +1,12 @@
-#browser .state { float: left; width: 50%; min-width: 300px; }
-#browser .links { float: left; width: 50%; min-width: 300px; }
+  
+#browser .state {
+  box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+  float: left; width: 50%; padding-right: 10px;
+}
+#browser .links {
+  box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+  float: left; width: 50%; padding-left: 10px;
+}
 
 #inspector { height: 100%; }
 

@@ -1,32 +1,58 @@
 <!doctype html>
-<head>
-  <meta charset="utf-8">
-  <title>API Browser</title>
-  <link rel="stylesheet" media="screen" href="styles.css" />
-  <link rel="stylesheet" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.19/themes/base/jquery-ui.css" />
-  <link rel="stylesheet" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.19/themes/ui-lightness/jquery-ui.css" />
-  <!--
-  <link rel="stylesheet" media="screen" href="vendor/css/bootstrap.css" />
-  <link rel="stylesheet" media="screen" href="vendor/css/bootstrap-responsive.css" />
-  -->
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>API Browser</title>
+    <link rel="stylesheet" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.19/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.19/themes/ui-lightness/jquery-ui.css" />
+    <link rel="stylesheet" media="screen" href="vendor/css/bootstrap.css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link rel="stylesheet" media="screen" href="vendor/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" media="screen" href="styles.css" />
+  </head>
+  <body>
 
-  <div class="clearfix" id="container">
-    <div id="browser">
-      <h1>Browser</h1>
-      <div class="clearfix" id="location-bar">
-        <p class="address"></p>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand">The HAL Browser</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
       </div>
-      <div id="current-resource"></div>
     </div>
 
-    <div id="inspector">
-      <h1>Inspector</h1>
-      <div class="panel">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span6">
+          <div id="browser">
+            <h1>Browser</h1>
+            <div class="clearfix" id="location-bar">
+              <p class="address"></p>
+            </div>
+            <div id="current-resource"></div>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div id="inspector">
+            <h1>Inspector</h1>
+            <div class="panel">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
   <script id="query-uri-template" type="text/template">
     <form id="query" action="<%= href %>">

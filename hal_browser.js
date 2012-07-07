@@ -136,14 +136,19 @@
 
     followLink: function(e) {
       e.preventDefault();
-      window.location.hash = $(e.target).attr('href');
+      var $target = $(e.target);
+      var uri = $target.attr('href') || $target.parent().attr('href');
+      window.location.hash = uri;
     },
 
     showUriQueryDialog: function(e) {
       e.preventDefault();
 
+      var $target = $(e.target);
+      var uri = $target.attr('href') || $target.parent().attr('href');
+
       var d = new HAL.Views.QueryUriDialog({
-        href: $(e.target).attr('href')
+        href: uri
       }).render();
 
       d.$el.dialog({

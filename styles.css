@@ -1,4 +1,3 @@
-  
 #browser .state {
   box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
   float: left; width: 50%; padding-right: 10px;
@@ -19,3 +18,13 @@
 #inspector { height: 100%; }
 
 #inspector .panel iframe { width: 100%; height: 100%; }
+
+body .btn {
+  padding: 2px 5px 2px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+body table.table {
+  font-size: 11px;
+}

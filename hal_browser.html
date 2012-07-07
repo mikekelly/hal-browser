@@ -25,7 +25,9 @@
           <a class="brand">The HAL Browser</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a href="#about">About</a></li>
+              <li><a
+              href="https://github.com/mikekelly/hal-browser">About The
+              HAL Explorer</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -108,18 +110,18 @@
                     <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
                     <td>
                     <% if (HAL.isUrl(rel)) { %>
-                      <a class="dox" href="<%= rel %>">[docs]</a>
+                      <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
                     <% } %>
                     </td>
                     <td>
                       <% if (link.templated === true) { %>
-                        <a class="query" href="<%= link.href %>" title="Query URI template">?</a>
+                        <a class="query btn btn-success" href="<%= link.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
                       <% } else { %>
-                        <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a>
+                        <a class="follow btn btn-success" href="<%= link.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
                       <% } %>
                     </td>
                     <td>
-                      <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a>
+                      <a class="non-get btn btn-warning" href="<%= link.href %>" title="Perform non-GET request">!</a>
                     </td>
                   </tr>
                 <% }); %>
@@ -129,18 +131,18 @@
                   <td><%= obj.name || '' %></td>
                   <td>
                   <% if (HAL.isUrl(rel)) { %>
-                    <a class="dox" href="<%= rel %>">[docs]</a>
+                    <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
                   <% } %>
                   </td>
                   <td>
                     <% if (obj.templated === true) { %>
-                      <a class="query" href="<%= obj.href %>" title="Query URI template">?</a>
+                      <a class="query btn btn-success" href="<%= obj.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
                     <% } else { %>
-                      <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a>
+                      <a class="follow btn btn-success" href="<%= obj.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
                     <% } %>
                   </td>
                   <td>
-                    <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a>
+                    <a class="non-get btn btn-warning" href="<%= obj.href %>" title="Perform non-GET request">!</a>
                   </td>
                 </tr>
               <% } %>
@@ -191,18 +193,18 @@
                   <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
                   <td>
                   <% if (HAL.isUrl(rel)) { %>
-                    <a class="dox" href="<%= rel %>">[docs]</a>
+                    <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
                   <% } %>
                   </td>
                   <td>
                     <% if (link.templated === true) { %>
-                      <a class="query" href="<%= link.href %>" title="Query URI template">?</a>
+                      <a class="query btn btn-success" href="<%= link.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
                     <% } else { %>
-                      <a class="follow" href="<%= link.href %>" title="Follow link">=&gt;</a>
+                      <a class="follow btn btn-success" href="<%= link.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
                     <% } %>
                   </td>
                   <td>
-                    <a class="non-get" href="<%= link.href %>" title="Perform non-GET request">!</a>
+                    <a class="non-get btn btn-warning" href="<%= link.href %>" title="Perform non-GET request">!</a>
                   </td>
                 </tr>
               <% }); %>
@@ -212,18 +214,18 @@
                 <td><%= obj.name || '' %></td>
                 <td>
                 <% if (HAL.isUrl(rel)) { %>
-                  <a class="dox" href="<%= rel %>">[docs]</a>
+                  <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
                 <% } %>
                 </td>
                 <td>
                   <% if (obj.templated === true) { %>
-                    <a class="query" href="<%= obj.href %>" title="Query URI template">?</a>
+                    <a class="query btn btn-success" href="<%= obj.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
                   <% } else { %>
-                    <a class="follow" href="<%= obj.href %>" title="Follow link">=&gt;</a>
+                    <a class="follow btn btn-success" href="<%= obj.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
                   <% } %>
                 </td>
                 <td>
-                  <a class="non-get" href="<%= obj.href %>" title="Perform non-GET request">!</a>
+                  <a class="non-get btn btn-warning" href="<%= obj.href %>" title="Perform non-GET request">!</a>
                 </td>
               </tr>
             <% } %>

@@ -73,11 +73,17 @@
     <form id="non-safe" action="<%= href %>">
       <p>Target URI: <%= href %></pre>
       <p>Method:</p>
-      <input name="method" class="method" />
+      <input name="method" class="method" value="POST" />
       <p>Headers:</p>
-      <textarea name="headers" class="headers" style="width: 100%; height: 100px"></textarea>
+      <textarea name="headers" class="headers" style="width: 100%; height: 100px">
+Content-Type: application/json
+      </textarea>
       <p>Body:</p>
-      <textarea name="body" class="body" style="width: 100%; height: 200px"></textarea>
+      <textarea name="body" class="body" style="width: 100%; height: 200px">
+{
+  
+}
+      </textarea>
       <input type="submit" value="Make Request" />
     </form>
   </script>

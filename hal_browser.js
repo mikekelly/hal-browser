@@ -344,14 +344,28 @@
     template: _.template($('#non-safe-request-template').html())
   });
 
+  var urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
   HAL.isUrl = function(str) {
-    var urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    return str.match(urlRegex);
+    return str.match(urlRegex) || isCurie(str);
   };
 
   HAL.truncateIfUrl = function(str) {
     var replaceRegex = /(http|https):\/\/([^\/]*)\//;
     return str.replace(replaceRegex, '.../');
+  };
+
+  var isCurie = function(string) {
+    return string.split(':').length > 1;
+  };
+
+  HAL.buildUrl = function(rel) {
+    if (!rel.match(urlRegex) && isCurie(rel) && HAL.currentDocument._links.curie) {
+      var tmpl = uritemplate(HAL.currentDocument._links.curie.href);
+      return tmpl.expand({ rel: rel.split(':')[1] });
+    } else {
+      return rel;
+    }
   };
 
   window.HAL = HAL;

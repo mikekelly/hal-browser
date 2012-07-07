@@ -110,7 +110,7 @@
                     <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
                     <td>
                     <% if (HAL.isUrl(rel)) { %>
-                      <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
+                      <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
                     <% } %>
                     </td>
                     <td>
@@ -131,7 +131,7 @@
                   <td><%= obj.name || '' %></td>
                   <td>
                   <% if (HAL.isUrl(rel)) { %>
-                    <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
+                    <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
                   <% } %>
                   </td>
                   <td>
@@ -193,7 +193,7 @@
                   <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
                   <td>
                   <% if (HAL.isUrl(rel)) { %>
-                    <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
+                    <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
                   <% } %>
                   </td>
                   <td>
@@ -214,7 +214,7 @@
                 <td><%= obj.name || '' %></td>
                 <td>
                 <% if (HAL.isUrl(rel)) { %>
-                  <a class="dox" href="<%= rel %>"><i class="icon-book"></i></a>
+                  <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
                 <% } %>
                 </td>
                 <td>

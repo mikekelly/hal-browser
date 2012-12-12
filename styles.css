@@ -5,6 +5,7 @@
   padding: 4px; margin: 0;
 }
 
+#browser #request-headers { width: 100%; height: 40px; }
 
 #inspector { height: 100%; }
 

@@ -361,8 +361,7 @@
     },
 
     render: function() {
-      //Should refactor this as well
-      this.$el.html(this.template({ href: this.href, additional_headers: $('#request-headers').val() }));
+      this.$el.html(this.template({ href: this.href, user_defined_headers: $('#request-headers').val() }));
       return this;
     },
 

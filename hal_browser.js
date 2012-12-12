@@ -25,7 +25,7 @@
 
     //TODO: Refactor this method logic   
     this.headers = function() {
-      var header_lines = $('.request_headers').val().split("\n");
+      var header_lines = $('#request-headers').val().split("\n");
       var headers = {};
       _.each(header_lines, function(line) {
         var parts = line.split(':');
@@ -361,7 +361,7 @@
 
     render: function() {
       //Should refactor this as well
-      this.$el.html(this.template({ href: this.href, additional_headers: $('.request_headers').val() }));
+      this.$el.html(this.template({ href: this.href, additional_headers: $('#request-headers').val() }));
       return this;
     },
 

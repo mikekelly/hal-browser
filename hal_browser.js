@@ -10,11 +10,32 @@
     this.get = function(url) {
       var self = this;
       this.vent.trigger('location-change', { url: url });
-      var jqxhr = $.getJSON(url, function(resource) {
-        self.vent.trigger('response', { resource: resource });
+      //TODO: Re-examine this approach
+      var jqxhr = $.ajax({
+        url: url,
+        dataType: 'json',
+        headers: this.headers(),
+        success: function(resource, textStatus, jqXHR) {
+          self.vent.trigger('response', { resource: resource, headers: jqXHR.getAllResponseHeaders() });
+        }
       }).error(function() {
         self.vent.trigger('fail-response', { jqxhr: jqxhr });
       });
+    };
+
+    //TODO: Refactor this method logic   
+    this.headers = function() {
+      var header_lines = $('.request_headers').val().split("\n");
+      var headers = {};
+      _.each(header_lines, function(line) {
+        var parts = line.split(':');
+        if (parts.length == 2) {
+          var name = parts[0].trim();
+          var value = parts[1].trim();
+          headers[name] = value;
+        }
+      });
+      return headers;
     };
   };
 
@@ -339,7 +360,8 @@
     },
 
     render: function() {
-      this.$el.html(this.template({ href: this.href }));
+      //Should refactor this as well
+      this.$el.html(this.template({ href: this.href, additional_headers: $('.request_headers').val() }));
       return this;
     },
 

@@ -373,9 +373,9 @@
     var headers = {};
     _.each(header_lines, function(line) {
       var parts = line.split(':');
-      if (parts.length == 2) {
-        var name = parts[0].trim();
-        var value = parts[1].trim();
+      if (parts.length > 1) {
+        var name = parts.shift().trim();
+        var value = parts.join(':').trim();
         headers[name] = value;
       }
     });

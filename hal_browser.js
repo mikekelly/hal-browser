@@ -18,7 +18,8 @@
         success: function(resource, textStatus, jqXHR) {
           self.vent.trigger('response', { 
             resource: resource,
-            headers: jqXHR.getAllResponseHeaders() });
+            headers: jqXHR.getAllResponseHeaders()
+          });
         }
       }).error(function() {
         self.vent.trigger('fail-response', { jqxhr: jqxhr });
@@ -100,6 +101,15 @@
       this.vent = opts.vent;
       this.locationBar = new HAL.Views.LocationBar({ el: this.$('#location-bar'), vent: this.vent });
       this.resourceView = new HAL.Views.Resource({ el: this.$('#current-resource'), vent: this.vent });
+    },
+
+    events: {
+      'blur #request-headers': 'updateRequestHeaders'
+    },
+
+    updateRequestHeaders: function(e) {
+      var headers = HAL.parseHeaders(this.$('#request-headers').val());
+      $.ajaxSetup({ headers: headers });
     }
   });
 

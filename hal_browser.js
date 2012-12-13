@@ -25,7 +25,7 @@
     };
 
     this.headers = function() {
-      HAL.Helpers.getHeaders($('#request-headers'));
+      HAL.parseHeaders($('#request-headers').val());
     };
   };
 
@@ -64,20 +64,6 @@
       }
     }
   });
-
-  HAL.Helpers.getHeaders = function($input) {
-    var header_lines = $input.val().split("\n");
-    var headers = {};
-    _.each(header_lines, function(line) {
-      var parts = line.split(':');
-      if (parts.length == 2) {
-        var name = parts[0].trim();
-        var value = parts[1].trim();
-        headers[name] = value;
-      }
-    });
-    return headers;
-  };
 
   HAL.Models.Resource = Backbone.Model.extend({
     initialize: function(representation) {
@@ -327,7 +313,7 @@
     },
 
     headers: function() {
-      HAL.Helpers.getHeaders(this.$('.headers'));
+      HAL.parseHeaders(this.$('.headers').val());
     },
 
     submitQuery: function(e) {
@@ -383,6 +369,20 @@
     } else {
       return rel;
     }
+  };
+
+  HAL.parseHeaders = function(string) {
+    var header_lines = string.split("\n");
+    var headers = {};
+    _.each(header_lines, function(line) {
+      var parts = line.split(':');
+      if (parts.length == 2) {
+        var name = parts[0].trim();
+        var value = parts[1].trim();
+        headers[name] = value;
+      }
+    });
+    return headers;
   };
 
   window.HAL = HAL;

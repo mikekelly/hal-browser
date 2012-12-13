@@ -7,13 +7,14 @@
 
   HAL.client = function(opts) {
     this.vent = opts.vent;
+    this.headers = HAL.parseHeaders($('#request-headers').val());
     this.get = function(url) {
       var self = this;
       this.vent.trigger('location-change', { url: url });
       var jqxhr = $.ajax({
         url: url,
         dataType: 'json',
-        headers: this.headers(),
+        headers: this.headers,
         success: function(resource, textStatus, jqXHR) {
           self.vent.trigger('response', { 
             resource: resource,
@@ -22,10 +23,6 @@
       }).error(function() {
         self.vent.trigger('fail-response', { jqxhr: jqxhr });
       });
-    };
-
-    this.headers = function() {
-      HAL.parseHeaders($('#request-headers').val());
     };
   };
 
@@ -313,7 +310,7 @@
     },
 
     headers: function() {
-      HAL.parseHeaders(this.$('.headers').val());
+      return HAL.parseHeaders(this.$('.headers').val());
     },
 
     submitQuery: function(e) {

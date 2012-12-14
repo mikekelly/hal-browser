@@ -5,6 +5,24 @@
   padding: 4px; margin: 0;
 }
 
+#browser #headers-bar {
+ border: 1px solid #888;
+ padding: 5px
+}
+
+#request-headers {
+  border: 0;
+  outline: none;
+  padding: 0;
+  resize: vertical;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 0px;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 
 #inspector { height: 100%; }
 

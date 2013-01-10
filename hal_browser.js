@@ -82,12 +82,14 @@
           _.each(obj, function(resource, i) {
             var newResource = new HAL.Models.Resource(resource);
             newResource.identifier = rel + '[' + i + ']';
+            newResource.embed_rel = rel;
             arr.push(newResource);
           });
           result[rel] = arr;
         } else {
           var newResource = new HAL.Models.Resource(obj);
           newResource.identifier = rel;
+          newResource.embed_rel = rel;
           result[rel] = newResource;
         }
       });
@@ -206,14 +208,16 @@
             result += self.embeddedResourceTemplate({
               state: resource.toJSON(),
               links: resource.links,
-              name: resource.identifier
+              name: resource.identifier,
+              embed_rel: resource.embed_rel
             });
           });
         } else {
           result += self.embeddedResourceTemplate({
             state: obj.toJSON(),
             links: obj.links,
-            name: obj.identifier
+            name: obj.identifier,
+            embed_rel: obj.embed_rel
           });
         }
       });

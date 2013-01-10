@@ -182,7 +182,12 @@ Content-Type: application/json
     <h3><a href="#"><%= name %></a></h3>
     <div class="clearfix">
       <div class="state">
-        <h4>State</h4>
+          <h4>State
+          <% if (HAL.isUrl(embed_rel)) { %>
+              <a class="dox" href="<%= HAL.buildUrl(embed_rel) %>">
+                  <i class="icon-book"></i></a>
+              <% } %>
+          </h4>
         <pre><%= JSON.stringify(state, null, 2) %></pre>
       </div>
       <div class="links">

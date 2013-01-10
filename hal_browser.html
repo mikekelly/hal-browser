@@ -98,7 +98,7 @@ Content-Type: application/json
     <div>
       <div class="row-fluid state">
         <h2>State</h2>
-        <pre><%= JSON.stringify(state, null, 2) %></pre>
+        <pre><%= JSON.stringify(state, null, HAL.jsonIndent) %></pre>
       </div>
       <div class="row-fluid links">
         <h2>Links</h2>
@@ -183,7 +183,7 @@ Content-Type: application/json
     <div class="clearfix">
       <div class="state">
         <h4>State</h4>
-        <pre><%= JSON.stringify(state, null, 2) %></pre>
+        <pre><%= JSON.stringify(state, null, HAL.jsonIndent) %></pre>
       </div>
       <div class="links">
         <h4>Links</h4>

@@ -2,7 +2,8 @@
   var HAL = {
     Models: {},
     Views: {},
-    currentDocument: {}
+    currentDocument: {},
+    jsonIndent: 2,
   };
 
   HAL.client = function(opts) {
@@ -257,7 +258,7 @@
     },
 
     showRawResource: function(e) {
-      this.$('.panel').html('<pre>' + JSON.stringify(e.resource, null, 2) + '</pre>');
+      this.$('.panel').html('<pre>' + JSON.stringify(e.resource, null, HAL.jsonIndent) + '</pre>');
     }
   });
 

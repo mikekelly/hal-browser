@@ -54,7 +54,11 @@
         <div class="span6">
           <div id="inspector">
             <h1>Inspector</h1>
-            <div class="panel">
+            <h2>Response Headers</h2>
+            <div class="header-panel">
+            </div>
+            <h2>Response Body</h2>
+            <div class="body-panel">
             </div>
           </div>
         </div>
@@ -170,12 +174,10 @@ Content-Type: application/json
     </div>
   </script>
 
-  <script id="failed-request-template" type="text/template">
-    <pre>
-<%= jqxhr.status %> <%= jqxhr.statusText %>
+  <script id="response-headers-template" type="text/template">
+    <pre><%= jqxhr.status %> <%= jqxhr.statusText %>
 
-<%= jqxhr.getAllResponseHeaders() %>
-    </pre>
+<%= jqxhr.getAllResponseHeaders() %></pre>
   </script>
 
   <script id="embedded-resource-template" type="text/template">

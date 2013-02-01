@@ -102,7 +102,7 @@ Content-Type: application/json
     <div>
       <div class="row-fluid state">
         <h2>State</h2>
-        <pre><%= JSON.stringify(state, null, HAL.jsonIndent) %></pre>
+        <pre><%= _.escape(JSON.stringify(state, null, HAL.jsonIndent)) %></pre>
       </div>
       <div class="row-fluid links">
         <h2>Links</h2>
@@ -190,7 +190,7 @@ Content-Type: application/json
                   <i class="icon-book"></i></a>
           <% } %>
           </h4>
-        <pre><%= JSON.stringify(state, null, HAL.jsonIndent) %></pre>
+        <pre><%= _.escape(JSON.stringify(state, null, HAL.jsonIndent)) %></pre>
       </div>
       <div class="links">
         <h4>Links</h4>

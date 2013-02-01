@@ -280,13 +280,13 @@
             output = JSON.stringify(obj, null, HAL.jsonIndent);
           } catch (err) {
             // JSON parse failed. Just show the raw text.
-            output = _.escape(responseText);
+            output = responseText;
           }
         } else if(content_type.indexOf('text/') == 0) {
-          output = _.escape(responseText);
+          output = responseText;
         }
       }
-      this.$('.body-panel').html('<pre>' + output + '</pre>');
+      this.$('.body-panel').html('<pre>' + _.escape(output) + '</pre>');
     }
   });
 

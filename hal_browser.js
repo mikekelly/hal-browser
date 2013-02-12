@@ -10,14 +10,15 @@
     this.vent = opts.vent;
     this.headers = HAL.parseHeaders($('#request-headers').val());
     this.get = function(url) {
+      var p = url[0] !== '/' ? 'p' : '';
       var self = this;
       this.vent.trigger('location-change', { url: url });
       var jqxhr = $.ajax({
         url: url,
-        dataType: 'json',
+        dataType: 'json' + p,
         headers: this.headers,
         success: function(resource, textStatus, jqXHR) {
-          self.vent.trigger('response', { 
+          self.vent.trigger('response', {
             resource: resource,
             headers: jqXHR.getAllResponseHeaders()
           });

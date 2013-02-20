@@ -401,8 +401,20 @@
 
   HAL.buildUrl = function(rel) {
     if (!rel.match(urlRegex) && isCurie(rel) && HAL.currentDocument._links.curie) {
-      var tmpl = uritemplate(HAL.currentDocument._links.curie.href);
-      return tmpl.expand({ rel: rel.split(':')[1] });
+      var parts = rel.split(':');
+      var curie = HAL.currentDocument._links.curie;
+      if (curie instanceof Array) {
+        for (var i=0; i<curie.length; i++) {
+          if (curie[i].name == parts[0]) {
+            var href = curie[i].href
+          }
+        }
+      }
+      else {
+        var href = curie.href;
+      }
+      var tmpl = uritemplate(href);
+      return tmpl.expand({ rel: parts[1] });
     } else {
       return rel;
     }

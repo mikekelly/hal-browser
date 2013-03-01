@@ -327,8 +327,29 @@
       this.$('.preview').html(result);
     },
 
+    extractExpressionNames: function (template) {
+      var names = [];
+      for (var i=0; i<template.set.length; i++) {
+        if (template.set[i].vars) {
+          for (var j=0; j<template.set[i].vars.length; j++) {
+            names.push(template.set[i].vars[j].name);
+          }
+        }
+      }
+      return names;
+    },
+
+    createDefaultInput: function (expressionNames) {
+      var defaultInput = {};
+      for (var i=0; i<expressionNames.length; i++) {
+        defaultInput[expressionNames[i]] = '';
+      }
+      return JSON.stringify(defaultInput, null, HAL.jsonIndent);
+    },
+
     render: function() {
-      this.$el.html(this.template({ href: this.href }));
+      var input = this.createDefaultInput(this.extractExpressionNames(this.uriTemplate));
+      this.$el.html(this.template({ href: this.href, input: input }));
       this.$('textarea').trigger('keyup');
       return this;
     },

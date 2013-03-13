@@ -17,6 +17,7 @@
     <link rel="stylesheet" media="screen" href="vendor/css/bootstrap-responsive.css" />
     <link rel="stylesheet" media="screen" href="styles.css" />
   </head>
+
   <body>
 
     <div class="navbar navbar-fixed-top">
@@ -267,7 +268,17 @@ Content-Type: application/json
   <script src="vendor/js/uritemplates.js"></script>
   <script src="vendor/js/bootstrap.js"></script>
 
-  <script src="hal_browser.js"></script>
+  <script src="js/hal-browser.js"></script>
+  <script src="js/hal/client.js"></script>
+  <script src="js/hal/resource.js"></script>
+  <script src="js/hal/router.js"></script>
+  <script src="js/hal/views/browser.js"></script>
+  <script src="js/hal/views/inspector.js"></script>
+  <script src="js/hal/views/location_bar.js"></script>
+  <script src="js/hal/views/non_safe_request_dialog.js"></script>
+  <script src="js/hal/views/query_uri_dialog.js"></script>
+  <script src="js/hal/views/resource.js"></script>
+
   <script>
     router = new HAL.Router({ entryPoint: '/' });
     Backbone.history.start();

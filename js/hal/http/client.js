@@ -24,3 +24,7 @@ HAL.Http.Client.prototype.get = function(url) {
     self.vent.trigger('response-headers', { jqxhr: jqxhr });
   });
 };
+
+HAL.Http.Client.prototype.updateDefaultHeaders = function(headers) {
+    $.ajaxSetup({ headers: headers });
+};

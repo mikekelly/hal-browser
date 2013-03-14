@@ -29,12 +29,15 @@
               <li><a href="#/">Go To Root URI</a></li>
               <li><a href="https://github.com/mikekelly/hal-browser">About The HAL Browser</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div id="browser">
+    </div>
+
+    <div style="display:none;" class="container-fluid">
       <div class="row-fluid">
         <div class="span6">
           <div class="row-fluid" id="browser">
@@ -281,8 +284,8 @@ Content-Type: application/json
 
   <script>
     var browser = new HAL.Browser({
-      container: $('body'),
-      entryPoint: '/grup'
+      container: $('#browser'),
+      entryPoint: '/'
     });
     browser.start();
   </script>

@@ -2,7 +2,7 @@ HAL.Browser = function(opts) {
   opts = opts || {};
 
   var vent = _.extend({}, Backbone.Events),
-      $container = opts.container || $('body');
+      $container = opts.container || $('#browser');
 
   this.entryPoint = opts.entryPoint || '/';
 
@@ -14,7 +14,10 @@ HAL.Browser = function(opts) {
   HAL.client = new HAL.Http.Client({ vent: vent });
 
   var browser = new HAL.Views.Browser({ vent: vent });
-  $container.append(browser.render());
+  browser.render()
+
+  $container.html(browser.el);
+  vent.trigger('app:loaded');
 };
 
 HAL.Browser.prototype.start = function() {

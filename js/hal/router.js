@@ -9,7 +9,7 @@ HAL.Router = Backbone.Router.extend({
       window.HAL.currentDocument = e.resource || {};
     });
 
-    this.client = new HAL.client({ vent: vent });
+    this.client = new HAL.Client({ vent: vent });
 
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json, application/json, */*; q=0.01' } });
 

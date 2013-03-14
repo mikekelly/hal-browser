@@ -268,10 +268,10 @@ Content-Type: application/json
   <script src="vendor/js/uritemplates.js"></script>
   <script src="vendor/js/bootstrap.js"></script>
 
-  <script src="js/hal-browser.js"></script>
-  <script src="js/hal/client.js"></script>
+  <script src="js/hal.js"></script>
+  <script src="js/hal/browser.js"></script>
+  <script src="js/hal/http/client.js"></script>
   <script src="js/hal/resource.js"></script>
-  <script src="js/hal/router.js"></script>
   <script src="js/hal/views/browser.js"></script>
   <script src="js/hal/views/inspector.js"></script>
   <script src="js/hal/views/location_bar.js"></script>
@@ -280,7 +280,10 @@ Content-Type: application/json
   <script src="js/hal/views/resource.js"></script>
 
   <script>
-    router = new HAL.Router({ entryPoint: '/' });
-    Backbone.history.start();
+    var browser = new HAL.Browser({
+      container: $('body'),
+      entryPoint: '/grup'
+    });
+    browser.start();
   </script>
 </body>

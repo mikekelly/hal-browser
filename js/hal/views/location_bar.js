@@ -7,9 +7,9 @@ HAL.Views.LocationBar = Backbone.View.extend({
     });
   },
 
-  setLocation: function(url) {
-    this.address.html(url);
-  },
+  className: 'address',
 
-  address: $('.address')
+  setLocation: function(url) {
+    this.$el.html(url);
+  }
 });

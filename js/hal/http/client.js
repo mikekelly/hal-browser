@@ -26,5 +26,5 @@ HAL.Http.Client.prototype.get = function(url) {
 };
 
 HAL.Http.Client.prototype.updateDefaultHeaders = function(headers) {
-    $.ajaxSetup({ headers: headers });
+  $.ajaxSetup({ headers: headers });
 };

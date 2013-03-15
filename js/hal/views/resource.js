@@ -30,29 +30,23 @@ HAL.Views.Resource = Backbone.View.extend({
   },
 
   render: function(resource) {
-    this.propertiesView.render(propeties);
-    this.requestHeadersView.render();
-    this.linksView.render(links)
-    this.embeddedResourcesView(embeddedResources);
-
     this.$el.empty();
 
-    this.$el.html(this.template({
-      state: resource.toJSON(),
-      links: resource.links
-    }));
+    this.propertiesView.render(resource.toJSON());
+    this.linksView.render(resource.links);
+    this.embeddedResourcesView.render(resource.embeddedResources);
 
-    var $embres = this.$('.embedded-resources');
-
-    $embres.html(this.renderEmbeddedResources(resource.embeddedResources));
-    $embres.accordion();
+    this.$el.append(this.propertiesView.el);
+    this.$el.append(this.requestHeadersView.el);
+    this.$el.append(this.linksView.el);
+    this.$el.append(this.embeddedResourcesView.el);
 
     return this;
   },
 
   followLink: function(e) {
     e.preventDefault();
-    var $target = $(e.target);
+    var $target = $(target);
     var uri = $target.attr('href') || $target.parent().attr('href');
     window.location.hash = uri;
   },
@@ -71,7 +65,6 @@ HAL.Views.Resource = Backbone.View.extend({
       title: 'Query URI Template',
       width: 400
     });
-    window.foo = d;
   },
 
   showNonSafeRequestDialog: function(e) {

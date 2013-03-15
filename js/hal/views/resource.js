@@ -2,13 +2,21 @@ HAL.Views.Resource = Backbone.View.extend({
   initialize: function(opts) {
     var self = this;
     this.vent = opts.vent;
+
+    this.propertiesView = new HAL.Views.Properties({ vent: this.vent });
+    this.requestHeadersView = new HAL.Views.RequestHeaders({ vent: this.vent });
+    this.linksView = new HAL.Views.Links({ vent: this.vent });
+    this.embeddedResourcesView = new HAL.Views.EmbeddedResources({ vent: this.vent });
+
     _.bindAll(this, 'followLink');
     _.bindAll(this, 'showNonSafeRequestDialog');
     _.bindAll(this, 'showUriQueryDialog');
     _.bindAll(this, 'showDocs');
+
     this.vent.bind('response', function(e) {
       self.render(new HAL.Models.Resource(e.resource));
     });
+
     this.vent.bind('fail-response', function(e) {
       self.vent.trigger('response', { resource: null, jqxhr: e.jqxhr });
     });
@@ -22,13 +30,23 @@ HAL.Views.Resource = Backbone.View.extend({
   },
 
   render: function(resource) {
+    this.propertiesView.render(propeties);
+    this.requestHeadersView.render();
+    this.linksView.render(links)
+    this.embeddedResourcesView(embeddedResources);
+
+    this.$el.empty();
+
     this.$el.html(this.template({
       state: resource.toJSON(),
       links: resource.links
     }));
+
     var $embres = this.$('.embedded-resources');
+
     $embres.html(this.renderEmbeddedResources(resource.embeddedResources));
     $embres.accordion();
+
     return this;
   },
 

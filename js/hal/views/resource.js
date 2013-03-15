@@ -8,8 +8,6 @@ HAL.Views.Resource = Backbone.View.extend({
     this.linksView = new HAL.Views.Links({ vent: this.vent });
     this.embeddedResourcesView = new HAL.Views.EmbeddedResources({ vent: this.vent });
 
-    _.bindAll(this, 'followLink');
-    _.bindAll(this, 'showNonSafeRequestDialog');
     _.bindAll(this, 'showUriQueryDialog');
     _.bindAll(this, 'showDocs');
 
@@ -46,16 +44,16 @@ HAL.Views.Resource = Backbone.View.extend({
 
   followLink: function(e) {
     e.preventDefault();
-    var $target = $(target);
-    var uri = $target.attr('href') || $target.parent().attr('href');
+    var $target = $(this);
+    var uri = $target.attr('href');
     window.location.hash = uri;
   },
 
   showUriQueryDialog: function(e) {
     e.preventDefault();
 
-    var $target = $(e.target);
-    var uri = $target.attr('href') || $target.parent().attr('href');
+    var $target = $(this);
+    var uri = $target.attr('href');
 
     new HAL.Views.QueryUriDialog({
       href: uri
@@ -84,32 +82,5 @@ HAL.Views.Resource = Backbone.View.extend({
     this.vent.trigger('show-docs', { url: uri });
   },
 
-  renderEmbeddedResources: function(embeddedResources) {
-    var self = this;
-    var result = '';
-    _.each(embeddedResources, function(obj) {
-      if ($.isArray(obj)) {
-        _.each(obj, function(resource) {
-          result += self.embeddedResourceTemplate({
-            state: resource.toJSON(),
-            links: resource.links,
-            name: resource.identifier,
-            embed_rel: resource.embed_rel
-          });
-        });
-      } else {
-        result += self.embeddedResourceTemplate({
-          state: obj.toJSON(),
-          links: obj.links,
-          name: obj.identifier,
-          embed_rel: obj.embed_rel
-        });
-      }
-    });
-    return result;
-  },
-
   template: _.template($('#resource-template').html()),
-
-  embeddedResourceTemplate: _.template($('#embedded-resource-template').html())
 });

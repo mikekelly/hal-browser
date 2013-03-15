@@ -6,9 +6,33 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
   className: 'embedded-resources',
 
   render: function(resources) {
-    this.$el.html(this.template({ resources: resources }));
-    this.$el.accordion();
-  },
+    var self = this,
+        resourceViews = [],
+        buildView = function(resource) {
+          return new HAL.Views.EmbeddedResource({
+            properties: resource.toJSON(),
+            links: resource.links,
+            name: resource.identifier,
+            embed_rel: resource.embed_rel
+          })
+        };
 
-  template: _.template($('#embedded-resources-template'));
+    _.each(resources, function(prop) {
+      if ($.isArray(prop)) {
+        _.each(prop, function(resource) {
+          resourceViews.push(buildView(resource));
+        });
+      } else {
+        resourceViews.push(buildView(prop));
+      }
+    });
+
+    _.each(resourceViews, function(view) {
+      self.$el.append(view.render());
+    });
+
+    this.$el.accordion();
+
+    return this;
+  }
 });

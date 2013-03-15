@@ -1,6 +1,7 @@
 HAL.Views.EmbeddedResources = Backbone.View.extend({
   initialize: function(opts) {
     this.vent = opts.vent;
+    _.bindAll(this, 'render');
   },
 
   className: 'embedded-resources',
@@ -28,7 +29,8 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
     });
 
     _.each(resourceViews, function(view) {
-      self.$el.append(view.render());
+      view.render();
+      self.$el.append(view.el());
     });
 
     this.$el.accordion();

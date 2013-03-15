@@ -55,10 +55,11 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
     return JSON.stringify(defaultInput, null, HAL.jsonIndent);
   },
 
-  render: function() {
+  render: function(opts) {
     var input = this.createDefaultInput(this.extractExpressionNames(this.uriTemplate));
     this.$el.html(this.template({ href: this.href, input: input }));
     this.$('textarea').trigger('keyup');
+    this.$el.dialog(opts);
     return this;
   },
 

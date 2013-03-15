@@ -57,11 +57,9 @@ HAL.Views.Resource = Backbone.View.extend({
     var $target = $(e.target);
     var uri = $target.attr('href') || $target.parent().attr('href');
 
-    var d = new HAL.Views.QueryUriDialog({
+    new HAL.Views.QueryUriDialog({
       href: uri
-    }).render();
-
-    d.$el.dialog({
+    }).render({
       title: 'Query URI Template',
       width: 400
     });
@@ -73,9 +71,7 @@ HAL.Views.Resource = Backbone.View.extend({
     var d = new HAL.Views.NonSafeRequestDialog({
       href: $(e.target).attr('href'),
       vent: this.vent
-    }).render();
-
-    d.$el.dialog({
+    }).render({
       title: 'Non Safe Request',
       width: 500
     });

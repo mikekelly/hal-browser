@@ -38,8 +38,9 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
     this.$el.dialog('close');
   },
 
-  render: function() {
+  render: function(opts) {
     this.$el.html(this.template({ href: this.href, user_defined_headers: $('#request-headers').val() }));
+    this.$el.dialog(opts);
     return this;
   },
 

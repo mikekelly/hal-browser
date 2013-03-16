@@ -3,13 +3,9 @@ HAL.Views.LocationBar = Backbone.View.extend({
     var self = this;
     this.vent = opts.vent;
     this.vent.bind('location-change', function(e) {
-      self.setLocation(e.url);
+      self.$el.html(e.url);
     });
   },
 
-  className: 'address',
-
-  setLocation: function(url) {
-    this.$el.html(url);
-  }
+  className: 'address'
 });

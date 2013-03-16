@@ -4,6 +4,8 @@ HAL.Views.EmbeddedResource = Backbone.View.extend({
     _.bindAll(this, 'render');
   },
 
+  className: 'embeddedResource',
+
   render: function() {
     this.$el.html(this.template({ resource: this.resource }));
   },

@@ -34,40 +34,19 @@
       </div>
     </div>
 
-    <div id="browser">
-    </div>
+    <div id="browser" class="container-fluid"></div>
 
-    <div style="display:none;" class="container-fluid">
-      <div class="row-fluid">
-        <div class="span6">
-          <div class="row-fluid" id="browser">
-            <h1>Explorer</h1>
-            <div class="row-fluid" id="location-bar">
-              <p class="address"></p>
-            </div>
-          <div class="row-fluid">
-            <h2>Request Headers</h2>
-            <div id="headers-bar">
-              <textarea id="request-headers"></textarea>
-            </div>
-          </div>
-            <div class="row-fluid" id="current-resource"></div>
-          </div>
-        </div>
+  <script id="links-template" type="text/template">
+    links template goes here
+  </script>
 
-        <div class="span6">
-          <div id="inspector">
-            <h1>Inspector</h1>
-            <h2>Response Headers</h2>
-            <div class="header-panel">
-            </div>
-            <h2>Response Body</h2>
-            <div class="body-panel">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <script id="properties-template" type="text/template">
+    properties template goes here
+  </script>
+
+  <script id="request-headers-template" type="text/template">
+    request headers template goes here
+  </script>
 
   <script id="query-uri-template" type="text/template">
     <form id="query" action="<%= href %>">
@@ -273,14 +252,26 @@ Content-Type: application/json
 
   <script src="js/hal.js"></script>
   <script src="js/hal/browser.js"></script>
+
   <script src="js/hal/http/client.js"></script>
   <script src="js/hal/resource.js"></script>
+
   <script src="js/hal/views/browser.js"></script>
+  <script src="js/hal/views/explorer.js"></script>
   <script src="js/hal/views/inspector.js"></script>
+
+  <script src="js/hal/views/navigation.js"></script>
   <script src="js/hal/views/location_bar.js"></script>
+  <script src="js/hal/views/request_headers.js"></script>
+
+  <script src="js/hal/views/resource.js"></script>
+  <script src="js/hal/views/properties.js"></script>
+  <script src="js/hal/views/links.js"></script>
+  <script src="js/hal/views/embedded_resources.js"></script>
+  <script src="js/hal/views/embedded_resource.js"></script>
+
   <script src="js/hal/views/non_safe_request_dialog.js"></script>
   <script src="js/hal/views/query_uri_dialog.js"></script>
-  <script src="js/hal/views/resource.js"></script>
 
   <script>
     var browser = new HAL.Browser({

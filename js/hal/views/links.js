@@ -5,7 +5,7 @@ HAL.Views.Links = Backbone.View.extend({
 
   className: 'links',
 
-  template: _.template($('#resource-links-template'));
+  template: _.template($('#links-template').html()),
 
   render: function(links) {
     this.$el.html(this.template({ links: links }));

@@ -6,7 +6,7 @@ HAL.Views.RequestHeaders = Backbone.View.extend({
     _.bindAll(this, 'updateRequestHeaders');
 
     this.vent.bind('app:loaded', function() {
-      self.updateDefaultHeaders();
+      self.updateRequestHeaders();
     });
   },
 
@@ -17,7 +17,8 @@ HAL.Views.RequestHeaders = Backbone.View.extend({
   },
 
   updateRequestHeaders: function(e) {
-    var headers = this.parseHeaders(this.$('textarea').val());
+    var inputText = this.$('textarea').val() || '';
+        headers = this.parseHeaders(inputText);
     HAL.client.updateDefaultHeaders(headers)
   },
 
@@ -33,5 +34,11 @@ HAL.Views.RequestHeaders = Backbone.View.extend({
       }
     });
     return headers;
-  }
+  },
+
+  render: function() {
+    this.$el.html(this.template());
+  },
+
+  template: _.template($('#request-headers-template').html())
 });

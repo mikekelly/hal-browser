@@ -4,9 +4,11 @@ HAL.Views.Properties = Backbone.View.extend({
     _.bindAll(this, 'render');
   },
 
+  className: 'properties',
+
   render: function(properties) {
     this.$el.html(this.template(properties));
   },
 
-  template: _.template($('#properties-template').html());
+  template: _.template($('#properties-template').html())
 });

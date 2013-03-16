@@ -9,6 +9,16 @@ HAL.Views.Inspector = Backbone.View.extend({
     this.vent.bind('response-headers', this.showResponseHeaders);
   },
 
+  className: 'inspector span6',
+
+  render: function() {
+    this.$el.html(this.template());
+  },
+
+  template: function() {
+    return '<h1>Inspector</h1>';
+  },
+
   responseHeadersTemplate: _.template($('#response-headers-template').html()),
 
   showResponseHeaders: function(e) {

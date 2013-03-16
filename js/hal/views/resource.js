@@ -4,7 +4,6 @@ HAL.Views.Resource = Backbone.View.extend({
     this.vent = opts.vent;
 
     this.propertiesView = new HAL.Views.Properties({ vent: this.vent });
-    this.requestHeadersView = new HAL.Views.RequestHeaders({ vent: this.vent });
     this.linksView = new HAL.Views.Links({ vent: this.vent });
     this.embeddedResourcesView = new HAL.Views.EmbeddedResources({ vent: this.vent });
 
@@ -20,6 +19,8 @@ HAL.Views.Resource = Backbone.View.extend({
     });
   },
 
+  className: 'resource',
+
   events: {
     'click .links a.follow': 'followLink',
     'click .links a.non-get': 'showNonSafeRequestDialog',
@@ -28,6 +29,14 @@ HAL.Views.Resource = Backbone.View.extend({
   },
 
   render: function(resource) {
+    var nullResource = {
+      toJSON: function() { return {}; },
+      links: {},
+      embeddedResources: {}
+    };
+
+    resource = resource || nullResource;
+
     this.$el.empty();
 
     this.propertiesView.render(resource.toJSON());
@@ -35,7 +44,6 @@ HAL.Views.Resource = Backbone.View.extend({
     this.embeddedResourcesView.render(resource.embeddedResources);
 
     this.$el.append(this.propertiesView.el);
-    this.$el.append(this.requestHeadersView.el);
     this.$el.append(this.linksView.el);
     this.$el.append(this.embeddedResourcesView.el);
 

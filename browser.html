@@ -34,6 +34,15 @@
 
     <div id="browser" class="container-fluid"></div>
 
+  <script id="location-bar-template" type="text/template">
+<form>
+    <div class="input-append span12">
+      <input class="span11" id="appendedInputButton" type="text" value="<%= url %>">
+      <button class="btn" type="submit">Go!</button>
+    </div>
+</form>
+  </script>
+
   <script id="links-template" type="text/template">
     links template goes here
   </script>
@@ -43,7 +52,7 @@
   </script>
 
   <script id="request-headers-template" type="text/template">
-    request headers template goes here
+    <textarea class="span12"></textarea>
   </script>
 
   <script id="response-headers-template" type="text/template">

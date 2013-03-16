@@ -33,8 +33,6 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
       self.$el.append(view.el());
     });
 
-    this.$el.accordion();
-
     return this;
   }
 });

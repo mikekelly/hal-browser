@@ -12,13 +12,12 @@ HAL.Http.Client.prototype.get = function(url) {
     success: function(resource, textStatus, jqXHR) {
       self.vent.trigger('response', {
         resource: resource,
+        jqxhr: jqXHR,
         headers: jqXHR.getAllResponseHeaders()
       });
     }
   }).error(function() {
     self.vent.trigger('fail-response', { jqxhr: jqxhr });
-  }).always(function() {
-    self.vent.trigger('response-headers', { jqxhr: jqxhr });
   });
 };
 

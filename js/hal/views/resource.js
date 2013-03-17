@@ -41,18 +41,21 @@ HAL.Views.Resource = Backbone.View.extend({
 
     this.propertiesView.render(resource.toJSON());
     this.linksView.render(resource.links);
-    this.embeddedResourcesView.render(resource.embeddedResources);
-
+    
     this.$el.append(this.propertiesView.el);
     this.$el.append(this.linksView.el);
-    this.$el.append(this.embeddedResourcesView.el);
+
+    if (resource.embeddedResources) {
+      this.embeddedResourcesView.render(resource.embeddedResources);
+      this.$el.append(this.embeddedResourcesView.el);
+    }
 
     return this;
   },
 
   followLink: function(e) {
     e.preventDefault();
-    var $target = $(this);
+    var $target = $(e.currentTarget);
     var uri = $target.attr('href');
     window.location.hash = uri;
   },
@@ -88,7 +91,5 @@ HAL.Views.Resource = Backbone.View.extend({
     var $target = $(e.target);
     var uri = $target.attr('href') || $target.parent().attr('href');
     this.vent.trigger('show-docs', { url: uri });
-  },
-
-  template: _.template($('#resource-template').html()),
+  }
 });

@@ -28,11 +28,15 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
       }
     });
 
+    this.$el.html(this.template());
+
     _.each(resourceViews, function(view) {
       view.render();
       self.$el.append(view.el());
     });
 
     return this;
-  }
+  },
+
+  template: _.template($('#embedded-resources-template').html())
 });

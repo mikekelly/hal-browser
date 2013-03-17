@@ -9,11 +9,12 @@ HAL.Views.Browser = Backbone.View.extend({
   className: 'hal-browser row-fluid',
 
   render: function() {
+    this.$el.empty();
+
     this.inspectorView.render();
     this.explorerView.render();
 
-    this.$el.empty();
-    this.$el.append(this.explorerView.el);
+    this.$el.html(this.explorerView.el);
     this.$el.append(this.inspectorView.el);
   },
 });

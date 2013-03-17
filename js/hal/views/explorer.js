@@ -10,7 +10,6 @@ HAL.Views.Explorer = Backbone.View.extend({
 
   render: function() {
     this.navigationView.render();
-    this.resourceView.render();
 
     this.$el.html(this.template());
 

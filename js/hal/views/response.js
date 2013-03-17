@@ -13,7 +13,7 @@ HAL.Views.Response = Backbone.View.extend({
   className: 'response',
 
   render: function(e) {
-    this.$el.empty();
+    this.$el.html();
 
     this.headersView.render(e);
     this.bodyView.render(e);

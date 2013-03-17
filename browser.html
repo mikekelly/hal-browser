@@ -48,7 +48,7 @@
   </script>
 
   <script id="properties-template" type="text/template">
-    properties template goes here
+    <pre><%= _.escape(JSON.stringify(properties, null, HAL.jsonIndent)) %></pre>
   </script>
 
   <script id="request-headers-template" type="text/template">

@@ -10,3 +10,5 @@ TODO
 * Make Location and Content-Location headers clickable links
 * Provide feedback to user when there are issues with response (missing
 self link, wrong media type identifier)
+* Give 'self' and 'curies' links special treatment
+* Add spin/loader to the location bar

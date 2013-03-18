@@ -143,22 +143,33 @@
 
 
   <script id="non-safe-request-template" type="text/template">
-    <form id="non-safe" action="<%= href %>">
-      <p>Target URI: <%= href %></pre>
-      <p>Method:</p>
-      <input name="method" class="method" value="POST" />
-      <p>Headers:</p>
-      <textarea name="headers" class="headers" style="width: 100%; height: 100px">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Make a non-GET request</h3>
+    </div>
+
+    <form class="non-safe" action="<%= href %>">
+      <div class="modal-body">
+        <p>Target URI</p>
+        <input name="url" type="text" class="url" value="<%= href %>" />
+        <p>Method:</p>
+        <input name="method" type="text" class="method" value="POST" />
+        <p>Headers:</p>
+<textarea name="headers" class="headers" style="height: 100px">
 Content-Type: application/json
 <%= user_defined_headers %>
-      </textarea>
-      <p>Body:</p>
-      <textarea name="body" class="body" style="width: 100%; height: 200px">
+</textarea>
+        <p>Body:</p>
+<textarea name="body" class="body" style="height: 200px">
 {
   
 }
-      </textarea>
-      <input type="submit" value="Make Request" />
+</textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Make Request</button>
+      </div>
     </form>
   </script>
 

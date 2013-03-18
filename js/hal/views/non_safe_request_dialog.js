@@ -7,40 +7,47 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
   },
 
   events: {
-    'submit form': 'submitQuery'
+    'submit form': 'submitQuery',
+    'click button[type=submit]': 'submitQuery'
   },
 
-  headers: function() {
-    return HAL.parseHeaders(this.$('.headers').val());
-  },
+  className: 'modal fade',
 
   submitQuery: function(e) {
     e.preventDefault();
-    var self = this;
-    var headers = this.headers();
-    var method = this.$('.method').val();
-    var body = this.$('.body').val();
-    var jqxhr = $.ajax({
-      url: this.href,
-      dataType: 'json',
-      type: method,
-      headers: headers,
-      data: body
-    }).done(function(response) {
+
+    var self = this,
+        opts = {
+          url: this.$('.url').val(),
+          headers: HAL.parseHeaders(this.$('.headers').val()),
+          method:  this.$('.method').val(),
+          body: this.$('.body').val()
+        };
+
+    var request = HAL.client.request(opts);
+    request.done(function(response) {
       self.vent.trigger('response', { resource: response });
     }).fail(function(response) {
       self.vent.trigger('fail-response', { jqxhr: jqxhr });
     }).always(function() {
       self.vent.trigger('response-headers', { jqxhr: jqxhr });
-      self.vent.trigger('location-change', { url: self.href });
-      window.location.hash = 'NON-GET:' + self.href;
+      self.vent.trigger('location-change', { url: opts.url });
+      window.location.hash = 'NON-GET:' + opts.url;
     });
-    this.$el.dialog('close');
+
+    this.$el.modal('hide');
   },
 
   render: function(opts) {
-    this.$el.html(this.template({ href: this.href, user_defined_headers: $('#request-headers').val() }));
-    this.$el.dialog(opts);
+    var headers = HAL.client.getDefaultHeaders(),
+        headersString = '';
+
+    _.each(headers, function(name, value) {
+      headersString += name + ': ' + value + '\n';
+    });
+
+    this.$el.html(this.template({ href: this.href, user_defined_headers: headersString }));
+    this.$el.modal();
     return this;
   },
 

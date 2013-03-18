@@ -40,8 +40,6 @@ HAL.Views.Links = Backbone.View.extend({
       href: $(e.target).attr('href'),
       vent: this.vent
     }).render({
-      title: 'Non Safe Request',
-      width: 500
     });
   },
 

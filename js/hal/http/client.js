@@ -21,6 +21,16 @@ HAL.Http.Client.prototype.get = function(url) {
   });
 };
 
+HAL.Http.Client.prototype.request = function(opts) {
+  opts.dataType = 'json';
+  return jqxhr = $.ajax(opts);
+};
+
 HAL.Http.Client.prototype.updateDefaultHeaders = function(headers) {
+  this.defaultHeaders = headers;
   $.ajaxSetup({ headers: headers });
+};
+
+HAL.Http.Client.prototype.getDefaultHeaders = function() {
+  return this.defaultHeaders;
 };

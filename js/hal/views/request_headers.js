@@ -18,22 +18,8 @@ HAL.Views.RequestHeaders = Backbone.View.extend({
 
   updateRequestHeaders: function(e) {
     var inputText = this.$('textarea').val() || '';
-        headers = this.parseHeaders(inputText);
+        headers = HAL.parseHeaders(inputText);
     HAL.client.updateDefaultHeaders(headers)
-  },
-
-  parseHeaders: function(string) {
-    var header_lines = string.split("\n");
-    var headers = {};
-    _.each(header_lines, function(line) {
-      var parts = line.split(':');
-      if (parts.length > 1) {
-        var name = parts.shift().trim();
-        var value = parts.join(':').trim();
-        headers[name] = value;
-      }
-    });
-    return headers;
   },
 
   render: function() {

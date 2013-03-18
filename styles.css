@@ -28,6 +28,10 @@
 
 .documentation iframe { width: 100%; height: 100%; }
 
+.non-safe input, .non-safe textarea {
+  width: 90%;
+}
+
 /*body .btn {*/
   /*padding: 2px 5px 2px;*/
   /*font-size: 12px;*/

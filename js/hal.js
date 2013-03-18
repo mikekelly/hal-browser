@@ -37,7 +37,20 @@
       else {
         return rel;
       }
-    }
+    },
+    parseHeaders: function(string) {
+      var header_lines = string.split("\n");
+      var headers = {};
+      _.each(header_lines, function(line) {
+        var parts = line.split(':');
+        if (parts.length > 1) {
+          var name = parts.shift().trim();
+          var value = parts.join(':').trim();
+          headers[name] = value;
+        }
+      });
+      return headers;
+    },
   };
 
   window.HAL = HAL;

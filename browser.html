@@ -130,14 +130,24 @@
   </script>
 
   <script id="query-uri-template" type="text/template">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Expand URI Template</h3>
+    </div>
+
     <form id="query" action="<%= href %>">
-      <p>URI Template:</p>
-      <pre><%= href %></pre>
-      <p>Input (JSON):</p>
-      <textarea style="width: 100%; height: 300px"><%= input %></textarea>
-      <p>Expanded URI:</p>
-      <pre class="preview">&nbsp;</pre>
-      <input type="submit" value="Follow URI" />
+      <div class="modal-body">
+        <p>URI Template:</p>
+        <pre><%= href %></pre>
+        <p>Input (JSON):</p>
+        <textarea><%= input %></textarea>
+        <p>Expanded URI:</p>
+        <pre class="preview">&nbsp;</pre>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Follow URI</button>
+      </div>
     </form>
   </script>
 

@@ -7,8 +7,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
   },
 
   events: {
-    'submit form': 'submitQuery',
-    'click button[type=submit]': 'submitQuery'
+    'submit form': 'submitQuery'
   },
 
   className: 'modal fade',

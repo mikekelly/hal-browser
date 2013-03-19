@@ -22,25 +22,21 @@ HAL.Views.Links = Backbone.View.extend({
   showUriQueryDialog: function(e) {
     e.preventDefault();
 
-    var $target = $(this);
+    var $target = $(e.currentTarget);
     var uri = $target.attr('href');
 
     new HAL.Views.QueryUriDialog({
       href: uri
-    }).render({
-      title: 'Query URI Template',
-      width: 400
-    });
+    }).render({});
   },
 
   showNonSafeRequestDialog: function(e) {
     e.preventDefault();
 
     var d = new HAL.Views.NonSafeRequestDialog({
-      href: $(e.target).attr('href'),
+      href: $(e.currentTarget).attr('href'),
       vent: this.vent
-    }).render({
-    });
+    }).render({});
   },
 
   showDocs: function(e) {

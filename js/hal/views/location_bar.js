@@ -1,15 +1,30 @@
 HAL.Views.LocationBar = Backbone.View.extend({
   initialize: function(opts) {
-    var self = this;
     this.vent = opts.vent;
-    this.vent.bind('location-change', function(e) {
-      self.setLocation(e.url);
-    });
+    _.bindAll(this, 'render');
+    _.bindAll(this, 'onButtonClick');
+    this.vent.bind('location-change', this.render);
   },
 
-  setLocation: function(url) {
-    this.address.html(url);
+  events: {
+    'submit form': 'onButtonClick'
   },
 
-  address: $('.address')
+  className: 'address',
+
+  render: function(e) {
+    e = e || { url: '' };
+    this.$el.html(this.template(e));
+  },
+
+  onButtonClick: function(e) {
+    e.preventDefault();
+    window.location.hash = this.getLocation();
+  },
+
+  getLocation: function() {
+    return this.$el.find('input').val();
+  },
+
+  template: _.template($('#location-bar-template').html())
 });

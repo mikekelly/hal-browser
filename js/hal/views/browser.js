@@ -2,16 +2,19 @@ HAL.Views.Browser = Backbone.View.extend({
   initialize: function(opts) {
     var self = this;
     this.vent = opts.vent;
-    this.locationBar = new HAL.Views.LocationBar({ el: this.$('#location-bar'), vent: this.vent });
-    this.resourceView = new HAL.Views.Resource({ el: this.$('#current-resource'), vent: this.vent });
+    this.explorerView = new HAL.Views.Explorer({ vent: this.vent });
+    this.inspectorView = new HAL.Views.Inspector({ vent: this.vent });
   },
 
-  events: {
-    'blur #request-headers': 'updateRequestHeaders'
-  },
+  className: 'hal-browser row-fluid',
 
-  updateRequestHeaders: function(e) {
-    var headers = HAL.parseHeaders(this.$('#request-headers').val());
-    $.ajaxSetup({ headers: headers });
-  }
+  render: function() {
+    this.$el.empty();
+
+    this.inspectorView.render();
+    this.explorerView.render();
+
+    this.$el.html(this.explorerView.el);
+    this.$el.append(this.inspectorView.el);
+  },
 });

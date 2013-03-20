@@ -6,6 +6,8 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
     _.bindAll(this, 'renderPreview');
   },
 
+  className: 'modal fade',
+
   events: {
     'submit form': 'submitQuery',
     'keyup textarea': 'renderPreview',
@@ -20,7 +22,7 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
     } catch(err) {
       input = {};
     }
-    this.$el.dialog('close');
+    this.$el.modal('hide');
     window.location.hash = this.uriTemplate.expand(input);
   },
 
@@ -55,10 +57,11 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
     return JSON.stringify(defaultInput, null, HAL.jsonIndent);
   },
 
-  render: function() {
+  render: function(opts) {
     var input = this.createDefaultInput(this.extractExpressionNames(this.uriTemplate));
     this.$el.html(this.template({ href: this.href, input: input }));
     this.$('textarea').trigger('keyup');
+    this.$el.modal(opts);
     return this;
   },
 

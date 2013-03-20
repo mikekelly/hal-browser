@@ -24,11 +24,19 @@
   box-shadow: none;
 }
 
-#inspector { height: 100%; }
+.inspector { height: 100%; }
 
-#inspector .body-panel iframe { width: 100%; height: 100%; }
+.documentation iframe { width: 100%; height: 100%; }
 
-body .btn {
+.modal input, .modal textarea {
+  width: 90%;
+}
+
+.modal textarea {
+  height: 100px;
+}
+
+.links .btn {
   padding: 2px 5px 2px;
   font-size: 12px;
   line-height: 14px;

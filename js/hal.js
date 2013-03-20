@@ -8,6 +8,7 @@
   var HAL = {
     Models: {},
     Views: {},
+    Http: {},
     currentDocument: {},
     jsonIndent: 2,
     isUrl: function(str) {
@@ -49,7 +50,7 @@
         }
       });
       return headers;
-    }
+    },
   };
 
   window.HAL = HAL;

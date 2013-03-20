@@ -20,7 +20,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
           url: this.$('.url').val(),
           headers: HAL.parseHeaders(this.$('.headers').val()),
           method:  this.$('.method').val(),
-          body: this.$('.body').val()
+          data: this.$('.body').val()
         };
 
     var request = HAL.client.request(opts);

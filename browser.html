@@ -188,81 +188,14 @@ Content-Type: application/json
   </script>
 
   <script id="embedded-resource-template" type="text/template">
-    <h3><a href="#"><%= name %></a></h3>
-    <div class="clearfix">
-      <div class="state">
-          <h4>State
-          <% if (HAL.isUrl(embed_rel)) { %>
-              <a class="dox" href="<%= HAL.buildUrl(embed_rel) %>">
-                  <i class="icon-book"></i></a>
-          <% } %>
-          </h4>
-        <pre><%= _.escape(JSON.stringify(state, null, HAL.jsonIndent)) %></pre>
-      </div>
-      <div class="links">
-        <h4>Links</h4>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>rel</th>
-              <th>title</th>
-              <th>name / index</th>
-              <th>docs</th>
-              <th>GET</th>
-              <th>NON-GET</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% _.each(links, function(obj, rel) { %>
-            <% if ($.isArray(obj)) { %>
-              <% _.each(obj, function(link, i) { %>
-                <tr>
-                  <td><strong><%= HAL.truncateIfUrl(rel) %></strong></td>
-                  <td><%= link.title || '' %></td>
-                  <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
-                  <td>
-                  <% if (HAL.isUrl(rel)) { %>
-                    <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
-                  <% } %>
-                  </td>
-                  <td>
-                    <% if (link.templated === true) { %>
-                      <a class="query btn btn-success" href="<%= link.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
-                    <% } else { %>
-                      <a class="follow btn btn-success" href="<%= link.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
-                    <% } %>
-                  </td>
-                  <td>
-                    <a class="non-get btn btn-warning" href="<%= link.href %>" title="Perform non-GET request">!</a>
-                  </td>
-                </tr>
-              <% }); %>
-            <% } else { %>
-              <tr>
-                <td><strong><%= HAL.truncateIfUrl(rel) %></strong></td>
-                <td><%= obj.title || '' %></td>
-                <td><%= obj.name || '' %></td>
-                <td>
-                <% if (HAL.isUrl(rel)) { %>
-                  <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
-                <% } %>
-                </td>
-                <td>
-                  <% if (obj.templated === true) { %>
-                    <a class="query btn btn-success" href="<%= obj.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
-                  <% } else { %>
-                    <a class="follow btn btn-success" href="<%= obj.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
-                  <% } %>
-                </td>
-                <td>
-                  <a class="non-get btn btn-warning" href="<%= obj.href %>" title="Perform non-GET request">!</a>
-                </td>
-              </tr>
-            <% } %>
-          <% }) %>
-          </tbody>
-        </table>
-      </div>
+    <div class="accordion-heading">
+      <a class="accordion-toggle" href="#"><%= resource.identifier %>
+      <% if (HAL.isUrl(resource.embed_rel)) { %>
+        <span class="dox pull-right" data-href="<%= HAL.buildUrl(resource.embed_rel) %>">
+          <i class="icon-book"></i>
+        </span>
+      <% } %>
+      </a>
     </div>
   </script>
 

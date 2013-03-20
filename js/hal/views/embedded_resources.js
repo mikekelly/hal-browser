@@ -4,18 +4,16 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
     _.bindAll(this, 'render');
   },
 
-  className: 'embedded-resources',
+  className: 'embedded-resources accordion',
 
   render: function(resources) {
     var self = this,
         resourceViews = [],
         buildView = function(resource) {
           return new HAL.Views.EmbeddedResource({
-            properties: resource.toJSON(),
-            links: resource.links,
-            name: resource.identifier,
-            embed_rel: resource.embed_rel
-          })
+            resource: resource,
+            vent: self.vent
+          });
         };
 
     _.each(resources, function(prop) {
@@ -32,8 +30,9 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
 
     _.each(resourceViews, function(view) {
       view.render();
-      self.$el.append(view.el());
+      self.$el.append(view.el);
     });
+
 
     return this;
   },

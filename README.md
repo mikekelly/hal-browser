@@ -8,7 +8,7 @@ Instructions
 All you should need to do is copy the files into your webroot.
 It is OK to put it in a subdirectory; it does not need to be in the root.
 
-All the JS and CSS dependencies come included in the vendor directory
+All the JS and CSS dependencies come included in the vendor directory.
 
 
 TODO

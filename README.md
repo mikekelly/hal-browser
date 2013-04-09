@@ -3,6 +3,16 @@ HAL-browser
 
 An API browser for the hal+json media type
 
+Instructions
+============
+All you should need to do is copy the files into your webroot.
+It is OK to put it in a subdirectory; it does not need to be in the root.
+
+All the JS and CSS dependencies come included in the vendor directory.
+
+HAL Info
+========
+The HAL specification can be found at [http://stateless.co/hal_specification.html](http://stateless.co/hal_specification.html).
 
 TODO
 ===========

@@ -7,6 +7,8 @@ HAL.Browser = Backbone.Router.extend({
 
     this.entryPoint = opts.entryPoint || '/';
 
+    $('#entryPointLink').attr('href', '#' + this.entryPoint);
+
     // TODO: don't hang currentDoc off namespace
     vent.bind('response', function(e) {
       window.HAL.currentDocument = e.resource || {};

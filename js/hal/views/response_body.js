@@ -22,7 +22,9 @@ HAL.Views.ResponseBody = Backbone.View.extend({
       // interesting response body (possibly JSON) to show.
       var content_type = e.jqxhr.getResponseHeader('content-type');
       var responseText = e.jqxhr.responseText;
-      if(content_type.indexOf('json') != -1) {
+      if(content_type == null || content_type.indexOf('text/') == 0) {
+        output = responseText;
+      } else if(content_type.indexOf('json') != -1) {
         // Looks like json... try to parse it.
         try {
           var obj = JSON.parse(responseText);
@@ -31,8 +33,6 @@ HAL.Views.ResponseBody = Backbone.View.extend({
           // JSON parse failed. Just show the raw text.
           output = responseText;
         }
-      } else if(content_type.indexOf('text/') == 0) {
-        output = responseText;
       }
     }
     return output

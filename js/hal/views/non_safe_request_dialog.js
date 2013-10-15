@@ -41,7 +41,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
     var headers = HAL.client.getDefaultHeaders(),
         headersString = '';
 
-    _.each(headers, function(name, value) {
+    _.each(headers, function(value, name) {
       headersString += name + ': ' + value + '\n';
     });
 

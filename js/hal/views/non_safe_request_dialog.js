@@ -30,7 +30,6 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
       self.vent.trigger('fail-response', { jqxhr: jqxhr });
     }).always(function() {
       self.vent.trigger('response-headers', { jqxhr: jqxhr });
-      self.vent.trigger('location-change', { url: opts.url });
       window.location.hash = 'NON-GET:' + opts.url;
     });
 

@@ -25,7 +25,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
 
     var request = HAL.client.request(opts);
     request.done(function(response) {
-      self.vent.trigger('response', { resource: response });
+      self.vent.trigger('response', { resource: response, jqxhr: jqxhr });
     }).fail(function(response) {
       self.vent.trigger('fail-response', { jqxhr: jqxhr });
     }).always(function() {

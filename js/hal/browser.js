@@ -16,7 +16,7 @@ HAL.Browser = Backbone.Router.extend({
 
     HAL.client = new HAL.Http.Client({ vent: vent });
 
-    var browser = new HAL.Views.Browser({ vent: vent });
+    var browser = new HAL.Views.Browser({ vent: vent, entryPoint: this.entryPoint });
     browser.render()
 
     $container.html(browser.el);

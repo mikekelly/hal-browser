@@ -12,6 +12,8 @@ HAL.Browser = Backbone.Router.extend({
       window.HAL.currentDocument = e.resource || {};
     });
 
+    vent.bind('location-go', _.bind(this.loadUrl, this));
+
     HAL.client = new HAL.Http.Client({ vent: vent });
 
     var browser = new HAL.Views.Browser({ vent: vent });
@@ -29,7 +31,19 @@ HAL.Browser = Backbone.Router.extend({
     '*url': 'resourceRoute'
   },
 
-  resourceRoute: function(url) {
+  loadUrl: function(url) {
+    if (this.getHash() === url) {
+      HAL.client.get(url);
+    } else {
+      window.location.hash = url;
+    }
+  },
+
+  getHash: function() {
+    return window.location.hash.slice(1);
+  },
+
+  resourceRoute: function() {
     url = location.hash.slice(1);
     console.log('target url changed to: ' + url);
     if (url.slice(0,8) !== 'NON-GET:') {

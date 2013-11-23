@@ -23,6 +23,13 @@ HAL.Browser = Backbone.Router.extend({
     if (window.location.hash === '') {
       window.location.hash = this.entryPoint;
     }
+
+    if(location.hash.slice(1,9) === 'NON-GET:') {
+      new HAL.Views.NonSafeRequestDialog({
+            href: location.hash.slice(9),
+            vent: vent
+          }).render({});
+    }
   },
 
   routes: {

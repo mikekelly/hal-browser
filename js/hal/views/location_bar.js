@@ -21,7 +21,7 @@ HAL.Views.LocationBar = Backbone.View.extend({
 
   onButtonClick: function(e) {
     e.preventDefault();
-    window.location.hash = this.getLocation();
+    this.vent.trigger('location-go', this.getLocation());
   },
 
   getLocation: function() {

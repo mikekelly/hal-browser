@@ -4,6 +4,8 @@ HAL.Views.LocationBar = Backbone.View.extend({
     _.bindAll(this, 'render');
     _.bindAll(this, 'onButtonClick');
     this.vent.bind('location-change', this.render);
+    this.vent.bind('location-change', _.bind(this.showSpinner, this));
+    this.vent.bind('response', _.bind(this.hideSpinner, this));
   },
 
   events: {
@@ -24,6 +26,14 @@ HAL.Views.LocationBar = Backbone.View.extend({
 
   getLocation: function() {
     return this.$el.find('input').val();
+  },
+
+  showSpinner: function() {
+    this.$el.find('.ajax-loader').addClass('visible');
+  },
+
+  hideSpinner: function() {
+    this.$el.find('.ajax-loader').removeClass('visible');
   },
 
   template: _.template($('#location-bar-template').html())

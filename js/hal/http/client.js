@@ -22,7 +22,9 @@ HAL.Http.Client.prototype.get = function(url) {
 };
 
 HAL.Http.Client.prototype.request = function(opts) {
+  var self = this;
   opts.dataType = 'json';
+  self.vent.trigger('location-change', { url: opts.url });
   return jqxhr = $.ajax(opts);
 };
 

@@ -46,3 +46,22 @@
 body table.table {
   font-size: 11px;
 }
+
+.location-bar-container {
+  line-height: 30px;
+}
+
+.ajax-loader {
+  vertical-align: middle;
+  background-image: url("./vendor/img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  opacity: 0;
+  display: inline-block;
+  transition: opacity 1s;
+}
+.ajax-loader.visible {
+  opacity: 1;
+}

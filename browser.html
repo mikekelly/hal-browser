@@ -36,9 +36,10 @@
 
   <script id="location-bar-template" type="text/template">
 <form>
-    <div class="input-append span12">
+    <div class="input-append span12 location-bar-container">
       <input class="span11" id="appendedInputButton" type="text" value="<%= url %>">
       <button class="btn" type="submit">Go!</button>
+       <span class="ajax-loader"></span>
     </div>
 </form>
   </script>
@@ -173,7 +174,7 @@ Content-Type: application/json
         <p>Body:</p>
 <textarea name="body" class="body" style="height: 200px">
 {
-  
+
 }
 </textarea>
       </div>

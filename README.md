@@ -2,6 +2,12 @@ HAL-browser
 ===========
 An API browser for the hal+json media type
 
+Example Usage
+=============
+Here is an example of a hal+json API using the browser:
+
+[http://haltalk.herokuapp.com/explorer/browser.html](http://haltalk.herokuapp.com/explorer/browser.html)
+
 About HAL
 ========
 HAL is a format based on json that establishes conventions for

@@ -25,13 +25,16 @@ representing links. For example:
 More detail about HAL can be found at
 [http://stateless.co/hal_specification.html](http://stateless.co/hal_specification.html).
 
+Dependencies
+============
+As per the bower.json, you will need:
+* Bootstrap 3.0
+* Backbone 1.1
+* url-template 2.0
+
 Instructions
 ============
-All you should need to do is copy the files into your webroot.
-It is OK to put it in a subdirectory; it does not need to be in the root.
-
-All the JS and CSS dependencies come included in the vendor directory.
-
+TBD
 
 TODO
 ===========

@@ -12,7 +12,8 @@ HAL.Views.LocationBar = Backbone.View.extend({
     'submit form': 'onButtonClick'
   },
 
-  className: 'address',
+  className: 'address clearfix',
+  id: 'location-bar',
 
   render: function(e) {
     e = e || { url: '' };

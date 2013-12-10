@@ -36,6 +36,21 @@ Instructions
 ============
 TBD
 
+Contributing
+===========
+Setup:
+```bash
+brew install node
+npm install bower grunt-cli -g
+bower install
+npm install
+```
+
+Build:
+```bash
+grunt concat:dist
+```
+
 TODO
 ===========
 * Make Location and Content-Location headers clickable links

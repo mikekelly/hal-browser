@@ -1,7 +1,7 @@
 HAL.Views.QueryUriDialog = Backbone.View.extend({
   initialize: function(opts) {
     this.href = opts.href;
-    this.uriTemplate = uritemplate(this.href);
+    this.uriTemplate = urltemplate.parse(this.href);
     _.bindAll(this, 'submitQuery');
     _.bindAll(this, 'renderPreview');
   },

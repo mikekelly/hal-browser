@@ -2,7 +2,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
   initialize: function(opts) {
     this.href = opts.href;
     this.vent = opts.vent;
-    this.uriTemplate = uritemplate(this.href);
+    this.uriTemplate = urltemplate.parse(this.href);
     _.bindAll(this, 'submitQuery');
   },
 

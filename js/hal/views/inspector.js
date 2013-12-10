@@ -9,7 +9,7 @@ HAL.Views.Inspector = Backbone.View.extend({
     this.vent.bind('response', this.renderResponse);
   },
 
-  className: 'inspector span6',
+  className: 'inspector col-md-6',
 
   render: function() {
     this.$el.html(this.template());
@@ -34,6 +34,6 @@ HAL.Views.Inspector = Backbone.View.extend({
   },
 
   template: function() {
-    return '<h1>Inspector</h1>';
+    return '';
   }
 });

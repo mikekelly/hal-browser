@@ -24,14 +24,14 @@
         var curies = HAL.currentDocument._links.curies;
         for (var i=0; i<curies.length; i++) {
           if (curies[i].name == parts[0]) {
-            var tmpl = uritemplate(curies[i].href);
+            var tmpl = urltemplate.parse(curies[i].href);
             return tmpl.expand({ rel: parts[1] });
           }
         }
       }
       else if (!rel.match(urlRegex) && isCurie(rel) && HAL.currentDocument._links.curie) {
         // Backward compatibility with <04 version of spec.
-        var tmpl = uritemplate(HAL.currentDocument._links.curie.href);
+        var tmpl = urltemplate.parse(HAL.currentDocument._links.curie.href);
         return tmpl.expand({ rel: rel.split(':')[1] });
       }
       else {

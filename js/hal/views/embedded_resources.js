@@ -11,6 +11,7 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
         resourceViews = [],
         buildView = function(resource) {
           return new HAL.Views.EmbeddedResource({
+            index: index,
             resource: resource,
             vent: self.vent
           });
@@ -18,8 +19,8 @@ HAL.Views.EmbeddedResources = Backbone.View.extend({
 
     _.each(resources, function(prop) {
       if ($.isArray(prop)) {
-        _.each(prop, function(resource) {
-          resourceViews.push(buildView(resource));
+        _.each(prop, function(resource, index) {
+          resourceViews.push(buildView(resource, index));
         });
       } else {
         resourceViews.push(buildView(prop));

@@ -35,7 +35,7 @@
 <form>
    <div class="col-md-12">
     <div class="input-group">
-      <input class="form-control" id="appendedInputButton" type="text" value="<%= url %>">
+      <input class="form-control" type="text" value="<%= url %>">
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit">Go!</button>
       </span>
@@ -67,7 +67,7 @@
               <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
               <td>
               <% if (HAL.isUrl(rel)) { %>
-                <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
+                <a class="dox" href="<%= HAL.buildUrl(rel) %>"><span class="glyphicon glyphicon-book"></span></a>
               <% } %>
               </td>
               <td>
@@ -89,7 +89,7 @@
             <td><%= obj.name || '' %></td>
             <td>
             <% if (HAL.isUrl(rel)) { %>
-              <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
+              <a class="btn dox" href="<%= HAL.buildUrl(rel) %>"><span class="glyphicon glyphicon-book"></span></a>
             <% } %>
             </td>
             <td>
@@ -198,14 +198,22 @@ Content-Type: application/json
   </script>
 
   <script id="embedded-resource-template" type="text/template">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" href="#"><%= resource.identifier %>
-      <% if (HAL.isUrl(resource.embed_rel)) { %>
-        <span class="dox pull-right" data-href="<%= HAL.buildUrl(resource.embed_rel) %>">
-          <i class="icon-book"></i>
-        </span>
-      <% } %>
-      </a>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+        <a data-toggle="collapse" class="accordion-toggle" href="#collapse<%= index %>"><%= resource.identifier %>
+        <% if (HAL.isUrl(resource.embed_rel)) { %>
+          <span class="btn dox pull-right" data-href="<%= HAL.buildUrl(resource.embed_rel) %>">
+            <span class="glyphicon glyphicon-book"></span>
+          </span>
+        <% } %>
+        </a>
+        </h4>
+      </div>
+      <div id="collapse<%= index %>" class="panel-collapse collapse in">
+        <div class="panel-body">
+        </div>
+      </div>
     </div>
   </script>
 

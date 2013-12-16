@@ -604,13 +604,16 @@ HAL.Http.Client.prototype.getDefaultHeaders = function() {
 
   extractExpressionNames: function (template) {
     var names = [];
-    for (var i=0; i<template.set.length; i++) {
-      if (template.set[i].vars) {
-        for (var j=0; j<template.set[i].vars.length; j++) {
-          names.push(template.set[i].vars[j].name);
-        }
-      }
-    }
+    // TODO: Reinstate this code using a URI template lib
+    // that gives us the variable names
+
+    //for (var i=0; i<template.set.length; i++) {
+      //if (template.set[i].vars) {
+        //for (var j=0; j<template.set[i].vars.length; j++) {
+          //names.push(template.set[i].vars[j].name);
+        //}
+      //}
+    //}
     return names;
   },
 

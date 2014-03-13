@@ -9,7 +9,12 @@ HAL.Views.Resource = Backbone.View.extend({
     });
 
     this.vent.bind('fail-response', function(e) {
-      self.vent.trigger('response', { resource: null, jqxhr: e.jqxhr });
+        try {
+            resource = JSON.parse(e.jqxhr.responseText);
+        } catch(err) {
+            resource = null;
+        }
+        self.vent.trigger('response', { resource: resource, jqxhr: e.jqxhr });
     });
   },
 

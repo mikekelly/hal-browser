@@ -68,7 +68,7 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
   cleanInput: function(inputObj) {
     var obj = {}
     for(var k in inputObj) {
-      if(inputObj.hasOwnProperty(k) && inputObj[k] != null && inputObj[k] != '') {
+      if(inputObj.hasOwnProperty(k) && inputObj[k] != null && String(inputObj[k]).trim() != '') {
         obj[k] = inputObj[k]
       }
     }

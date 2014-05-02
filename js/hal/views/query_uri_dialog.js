@@ -23,14 +23,14 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
       input = {};
     }
     this.$el.modal('hide');
-    window.location.hash = this.uriTemplate.expand(input);
+    window.location.hash = this.uriTemplate.expand(this.cleanInput(input));
   },
 
   renderPreview: function(e) {
     var input, result;
     try {
       input = JSON.parse($(e.target).val());
-      result = this.uriTemplate.expand(input);
+      result = this.uriTemplate.expand(this.cleanInput(input));
     } catch (err) {
       result = 'Invalid json input';
     }
@@ -63,6 +63,16 @@ HAL.Views.QueryUriDialog = Backbone.View.extend({
     this.$('textarea').trigger('keyup');
     this.$el.modal(opts);
     return this;
+  },
+
+  cleanInput: function(inputObj) {
+    var obj = {}
+    for(var k in inputObj) {
+      if(inputObj.hasOwnProperty(k) && inputObj[k] != null && inputObj[k] != '') {
+        obj[k] = inputObj[k]
+      }
+    }
+    return obj
   },
 
   template: _.template($('#query-uri-template').html())

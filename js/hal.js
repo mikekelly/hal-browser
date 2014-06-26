@@ -19,6 +19,9 @@
         return str.replace(replaceRegex, '.../');
     },
     buildUrl: function(rel) {
+      if (!HAL.currentDocument._links) {
+        return rel;
+      }
       if (!rel.match(urlRegex) && isCurie(rel) && HAL.currentDocument._links.curies) {
         var parts = rel.split(':');
         var curies = HAL.currentDocument._links.curies;

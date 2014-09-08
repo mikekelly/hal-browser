@@ -123,7 +123,7 @@
     <h2>Response Headers</h2>
     <pre><%= status.code %> <%= status.text %>
 
-<%= headers %></pre>
+<%= _.escape(headers) %></pre>
   </script>
 
   <script id="response-body-template" type="text/template">

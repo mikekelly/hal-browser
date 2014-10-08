@@ -65,3 +65,12 @@ body table.table {
 .ajax-loader.visible {
   opacity: 1;
 }
+.embedded-resource-title {
+  font-style: italic;
+}
+.embedded-resource-title:before {
+  content: "\"";
+}
+.embedded-resource-title:after {
+  content: "\"";
+}

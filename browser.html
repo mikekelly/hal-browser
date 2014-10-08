@@ -191,7 +191,7 @@ Content-Type: application/json
 
   <script id="embedded-resource-template" type="text/template">
     <div class="accordion-heading">
-      <a class="accordion-toggle" href="#"><%= resource.identifier %>
+      <a class="accordion-toggle" href="#"><%= resource.identifier %><% console.log(resource); if (resource.title) { %>: <span class="embedded-resource-title"><%- resource.title %></span><% } %>
       <% if (HAL.isUrl(resource.embed_rel)) { %>
         <span class="dox pull-right" data-href="<%= HAL.buildUrl(resource.embed_rel) %>">
           <i class="icon-book"></i>

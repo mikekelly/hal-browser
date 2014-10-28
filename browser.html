@@ -33,13 +33,43 @@
     </div>
 
     <div id="browser" class="container-fluid"></div>
+    <script>
+
+        var getUsername = function() {
+                return browser ? browser.getUsername() : "";
+        };
+
+        var getPassword = function() {
+                return browser ? browser.getPassword() : "";
+        };
+
+        var useCreds = function() {
+                return browser ? !!browser.useCreds() : false;
+        }
+    </script>
 
   <script id="location-bar-template" type="text/template">
-<form>
+<form class="form-inline">
     <div class="input-append span12 location-bar-container">
       <input class="span11" id="appendedInputButton" type="text" value="<%= url %>">
       <button class="btn" type="submit">Go!</button>
        <span class="ajax-loader"></span>
+    </div>
+    <div class="col-xs-4 col-sm-3 col-md-2 col-md-offset-2 everything-checkbox">
+        <div>
+            <label class="credentials1">
+                <input type="checkbox" class="checkbox style-2 credentials2" id="useCreds" onclick="browser.toggleCreds()" <% print( useCreds() ?  'checked' : '') %>  />
+                <span>Use Credentials</span>
+            </label>
+            <label class="<%= useCreds() ?  'credentials1' : 'hidden' %>" id="userLabel">
+                <span class="credentials2">Username</span>
+                <input type="text" id="username" value="<%= getUsername() %>" onfocusout="browser.setCreds()"/>
+            </label>
+            <label class="<%= useCreds() ?  'credentials1' : 'hidden' %>" id="passLabel">
+                <span class="credentials2">Password</span>
+                <input type="password" id="password" value="<%= getPassword() %>" onfocusout="browser.setCreds()" />
+            </label>
+        </div>
     </div>
 </form>
   </script>

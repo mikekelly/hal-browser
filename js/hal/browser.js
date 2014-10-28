@@ -56,5 +56,37 @@ HAL.Browser = Backbone.Router.extend({
     if (url.slice(0,8) !== 'NON-GET:') {
       HAL.client.get(url);
     }
-  }
+  },
+   toggleCreds: function() {
+       if ($('#useCreds').is(':checked')) {
+         this.showCreds();
+         this.usingCreds = true;
+       } else {
+           delete HAL.client.username;
+           delete HAL.client.username;
+           this.usingCreds = false;
+           this.hideCreds();
+       }
+    },
+    useCreds: function() {
+        return this.usingCreds;;
+    },
+    showCreds: function() {
+        $("#userLabel").attr("class", "credentials1");
+        $("#passLabel").attr("class", "credentials1");
+    },
+    hideCreds: function() {
+        $("#userLabel").attr("class", "hidden");
+        $("#passLabel").attr("class", "hidden");
+    },
+    getUsername: function() {
+        return HAL.client.getUsername();
+    },
+    getPassword: function() {
+        return HAL.client.getPassword();
+    },
+    setCreds: function() {
+        HAL.client.username = $('#username').val();
+        HAL.client.password = $('#password').val();
+    }
 });

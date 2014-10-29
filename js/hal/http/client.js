@@ -13,23 +13,21 @@ HAL.Http.Client.prototype.getPassword = function() {
 
 HAL.Http.Client.prototype.get = function(url) {
   var self = this;
-  var creds;
+  var withCreds;
   if (!this.username || !this.password) {
       this.username = $("#username").val();
       this.password = $("#password").val();
   }
-  if (this.username && this.password  && $('#useCreds').is(':checked')) {
-      creds = {
-          withCredentials: true,
-          username: this.username,
-          password: this.password
-      };
-  }
+
   this.vent.trigger('location-change', { url: url });
   var jqxhr = $.ajax({
     url: url,
     dataType: 'json',
-    xhrFields: creds,
+    beforeSend: function (xhr) {
+        if (self.username && self.password  && $('#useCreds').is(':checked')) {
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(self.username + ":" + self.password));
+        }
+    },
     success: function(resource, textStatus, jqXHR) {
       self.vent.trigger('response', {
         resource: resource,

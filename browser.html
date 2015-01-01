@@ -123,7 +123,16 @@
     <h2>Response Headers</h2>
     <pre><%= status.code %> <%= status.text %>
 
-<%= _.escape(headers) %></pre>
+<% _.each(headers, function(value, name) {
+      %><%= _.escape(name) %>: <%
+           if(HAL.isFollowableHeader(name)) {
+           %><a href="<%= _.escape(value) %>" class="follow"><%
+           }
+      %><%= _.escape(value)
+      %><% if(HAL.isFollowableHeader(name)) {
+           %></a><%
+           } %>
+<% }) %></pre>
   </script>
 
   <script id="response-body-template" type="text/template">

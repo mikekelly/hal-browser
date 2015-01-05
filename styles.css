@@ -76,3 +76,10 @@ body table.table {
 .embedded-resource-title:after {
   content: "\"";
 }
+.credentials1 {
+    padding-top:  10px;
+}
+.credentials2 {
+    padding-left: 20px;
+}
+

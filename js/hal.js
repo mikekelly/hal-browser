@@ -26,7 +26,6 @@
        var uri = new URI(rel)
        var norm = uri.absoluteTo(cur);
 
-	   console.log("normalizeUrl("+rel+") = "+norm)
        return norm
 	},
     buildUrl: function(rel) {

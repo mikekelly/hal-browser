@@ -21,6 +21,14 @@
       var replaceRegex = /(http|https):\/\/([^\/]*)\//;
         return str.replace(replaceRegex, '.../');
     },
+    normalizeUrl: function(rel) {
+       var cur = location.hash.slice(1);
+       var uri = new URI(rel)
+       var norm = uri.absoluteTo(cur);
+
+	   console.log("normalizeUrl("+rel+") = "+norm)
+       return norm
+	},
     buildUrl: function(rel) {
       if (!HAL.currentDocument._links) {
         return rel;

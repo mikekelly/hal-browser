@@ -67,18 +67,18 @@
               <td><%= link.name ? 'name: ' + link.name : 'index: ' + i %></a></td>
               <td>
               <% if (HAL.isUrl(rel)) { %>
-                <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
+                <a class="dox" href="<%= HAL.normalizeUrl(HAL.buildUrl(rel)) %>"><i class="icon-book"></i></a>
               <% } %>
               </td>
               <td>
                 <% if (link.templated === true) { %>
-                  <a class="query btn btn-success" href="<%= link.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
+                  <a class="query btn btn-success" href="<%= HAL.normalizeUrl(link.href) %>" title="Query URI template"><i class="icon-question-sign"></i></a>
                 <% } else { %>
-                  <a class="follow btn btn-success" href="<%= link.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
+                  <a class="follow btn btn-success" href="<%= HAL.normalizeUrl(link.href) %>" title="Follow link"><i class="icon-arrow-right"></i></a>
                 <% } %>
               </td>
               <td>
-                <a class="non-get btn btn-warning" href="<%= link.href %>" title="Perform non-GET request">!</a>
+                <a class="non-get btn btn-warning" href="<%= HAL.normalizeUrl(link.href) %>" title="Perform non-GET request">!</a>
               </td>
             </tr>
           <% }); %>
@@ -89,18 +89,18 @@
             <td><%= obj.name || '' %></td>
             <td>
             <% if (HAL.isUrl(rel)) { %>
-              <a class="dox" href="<%= HAL.buildUrl(rel) %>"><i class="icon-book"></i></a>
+              <a class="dox" href="<%= HAL.normalizeUrl(HAL.buildUrl(rel)) %>"><i class="icon-book"></i></a>
             <% } %>
             </td>
             <td>
               <% if (obj.templated === true) { %>
-                <a class="query btn btn-success" href="<%= obj.href %>" title="Query URI template"><i class="icon-question-sign"></i></a>
+                <a class="query btn btn-success" href="<%= HAL.normalizeUrl(obj.href) %>" title="Query URI template"><i class="icon-question-sign"></i></a>
               <% } else { %>
-                <a class="follow btn btn-success" href="<%= obj.href %>" title="Follow link"><i class="icon-arrow-right"></i></a>
+                <a class="follow btn btn-success" href="<%= HAL.normalizeUrl(obj.href) %>" title="Follow link"><i class="icon-arrow-right"></i></a>
               <% } %>
             </td>
             <td>
-              <a class="non-get btn btn-warning" href="<%= obj.href %>" title="Perform non-GET request">!</a>
+              <a class="non-get btn btn-warning" href="<%= HAL.normalizeUrl(obj.href) %>" title="Perform non-GET request">!</a>
             </td>
           </tr>
         <% } %>
@@ -126,7 +126,7 @@
 <% _.each(headers, function(value, name) {
       %><%= _.escape(name) %>: <%
            if(HAL.isFollowableHeader(name)) {
-           %><a href="<%= _.escape(value) %>" class="follow"><%
+           %><a href="<%= HAL.normalizeUrl(_.escape(value)) %>" class="follow"><%
            }
       %><%= _.escape(value)
       %><% if(HAL.isFollowableHeader(name)) {
@@ -202,7 +202,7 @@ Content-Type: application/json
     <div class="accordion-heading">
       <a class="accordion-toggle" href="#"><%= resource.identifier %><% if (resource.title) { %>: <span class="embedded-resource-title"><%- resource.title %></span><% } %>
       <% if (HAL.isUrl(resource.embed_rel)) { %>
-        <span class="dox pull-right" data-href="<%= HAL.buildUrl(resource.embed_rel) %>">
+        <span class="dox pull-right" data-href="<%= HAL.normalizeUrl(HAL.buildUrl(resource.embed_rel)) %>">
           <i class="icon-book"></i>
         </span>
       <% } %>
@@ -214,6 +214,7 @@ Content-Type: application/json
   <script src="vendor/js/underscore.js"></script>
   <script src="vendor/js/backbone.js"></script>
   <script src="vendor/js/uritemplates.js"></script>
+  <script src="vendor/js/URI.min.js"></script>
   <script src="vendor/js/bootstrap.js"></script>
 
   <script src="js/hal.js"></script>

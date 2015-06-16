@@ -1,6 +1,7 @@
 HAL.Http.Client = function(opts) {
   this.vent = opts.vent;
   this.defaultHeaders = { 'Accept': 'application/hal+json, application/json, */*; q=0.01' };
+  this.headers = this.defaultHeaders;
 };
 
 HAL.Http.Client.prototype.get = function(url) {
@@ -12,7 +13,7 @@ HAL.Http.Client.prototype.get = function(url) {
     xhrFields: {
       withCredentials: true
     },
-    headers: this.defaultHeaders,
+    headers: this.headers,
     success: function(resource, textStatus, jqXHR) {
       self.vent.trigger('response', {
         resource: resource,
@@ -34,10 +35,10 @@ HAL.Http.Client.prototype.request = function(opts) {
   return jqxhr = $.ajax(opts);
 };
 
-HAL.Http.Client.prototype.updateDefaultHeaders = function(headers) {
-  this.defaultHeaders = headers;
+HAL.Http.Client.prototype.updateHeaders = function(headers) {
+  this.headers = headers;
 };
 
-HAL.Http.Client.prototype.getDefaultHeaders = function() {
-  return this.defaultHeaders;
+HAL.Http.Client.prototype.getHeaders = function() {
+  return this.headers;
 };

@@ -19,7 +19,7 @@ HAL.Views.RequestHeaders = Backbone.View.extend({
   updateRequestHeaders: function(e) {
     var inputText = this.$('textarea').val() || '';
         headers = HAL.parseHeaders(inputText);
-    HAL.client.updateDefaultHeaders(headers)
+    HAL.client.updateHeaders(_.defaults(headers, HAL.client.defaultHeaders))
   },
 
   render: function() {

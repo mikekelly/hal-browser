@@ -37,7 +37,7 @@
   <script id="location-bar-template" type="text/template">
 <form>
     <div class="input-append span12 location-bar-container">
-      <input class="span11" id="appendedInputButton" type="text" value="<%= url %>">
+      <input class="span11" id="appendedInputButton" type="text" value="<%= _.escape(url) %>">
       <button class="btn" type="submit">Go!</button>
        <span class="ajax-loader"></span>
     </div>

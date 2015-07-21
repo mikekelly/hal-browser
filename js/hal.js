@@ -64,6 +64,7 @@
       });
       return headers;
     },
+    customPost: false
   };
 
   window.HAL = HAL;

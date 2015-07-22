@@ -26,7 +26,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
 
     // If there is a customPost form, then use its special data extraction function and override opts.data
     if (HAL.customPost) {
-      opts.data = HAL.customPost.extractData(this.attrs);
+      opts.data = HAL.customPost.onFormSubmit(this.attrs);
     }
 
     var request = HAL.client.request(opts);

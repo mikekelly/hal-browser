@@ -53,7 +53,7 @@ HAL.customPost = {
 		// 2. invoke callback(results)
 	},
 
-	extractData: function(attributes) {
+	onFormSubmit: function(attributes) {
 		// 1. Use the array of attributes and  extract input values from your custom
 		//    dialog.
 		// 2. Convert into a properly stringified JSON document
@@ -62,7 +62,7 @@ HAL.customPost = {
 ```
 
 * `renderForm` supports fetching through a promise by letting you call `callback(results)` from `then()` or `done()` if needed.
-* `extractData` is used to pull input values from the dialog and convert into a stringified JSON document to be sent to the server for resource creation.
+* `onFormSubmit` is used to pull input values from the dialog and convert into a stringified JSON document to be sent to the server for resource creation.
 
 To plug in your own code and use the attributes, you'll have to write an alternative `browser.html`.
 

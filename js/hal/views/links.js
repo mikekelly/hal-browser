@@ -42,7 +42,7 @@ HAL.Views.Links = Backbone.View.extend({
         var d = new HAL.Views.NonSafeRequestDialog({
           href: href,
           vent: self.vent,
-          attrs: results
+          form_data: results
         }).render({});
       })
     } else {

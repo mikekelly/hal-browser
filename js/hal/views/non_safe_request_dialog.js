@@ -2,7 +2,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
   initialize: function(opts) {
     this.href = opts.href;
     this.vent = opts.vent;
-    this.attrs = opts.attrs;
+    this.form_data = opts.form_data;
     this.uriTemplate = uritemplate(this.href);
     _.bindAll(this, 'submitQuery');
   },
@@ -26,7 +26,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
 
     // If there is a customPost form, then use its special data extraction function and override opts.data
     if (HAL.customPost) {
-      opts.data = HAL.customPost.onFormSubmit(this.attrs);
+      opts.data = HAL.customPost.onFormSubmit(this.form_data);
     }
 
     var request = HAL.client.request(opts);
@@ -50,7 +50,7 @@ HAL.Views.NonSafeRequestDialog = Backbone.View.extend({
       headersString += name + ': ' + value + '\n';
     });
 
-    this.$el.html(this.template({ href: this.href, user_defined_headers: headersString, attrs: this.attrs }));
+    this.$el.html(this.template({ href: this.href, user_defined_headers: headersString, form_data: this.form_data }));
     this.$el.modal();
     return this;
   },

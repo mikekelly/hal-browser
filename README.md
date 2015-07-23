@@ -49,13 +49,12 @@ The following fragment of JavaScript shows the API to plugin your own solution:
 HAL.customPost = {
 
 	renderForm: function(href, callback) {
-		// 1. var results = /* array of attribute names ["firstName", "lastName"] */
-		// 2. invoke callback(results)
+		// 1. var form_data = /* whatever your custom form needs, whether data or HTML */
+		// 2. invoke callback(form_data)
 	},
 
-	onFormSubmit: function(attributes) {
-		// 1. Use the array of attributes and  extract input values from your custom
-		//    dialog.
+	onFormSubmit: function(form_data) {
+		// 1. Use the form_data and extract input values from your custom dialog.
 		// 2. Convert into a properly stringified JSON document
 	}
 }

@@ -33,10 +33,24 @@ HAL.Views.Links = Backbone.View.extend({
   showNonSafeRequestDialog: function(e) {
     e.preventDefault();
 
-    var d = new HAL.Views.NonSafeRequestDialog({
-      href: $(e.currentTarget).attr('href'),
-      vent: this.vent
-    }).render({});
+    var self = this;
+    var href = $(e.currentTarget).attr('href');
+
+    // If ther eis a customPost, then invoke its renderForm() op before callingback to create the view
+    if (HAL.customPost) {
+      HAL.customPost.renderForm(href, function(results) {
+        var d = new HAL.Views.NonSafeRequestDialog({
+          href: href,
+          vent: self.vent,
+          form_data: results
+        }).render({});
+      })
+    } else {
+      var d = new HAL.Views.NonSafeRequestDialog({
+        href: href,
+        vent: self.vent
+      }).render({});
+    }
   },
 
   showDocs: function(e) {

@@ -64,6 +64,7 @@
       });
       return headers;
     },
+    customPostForm: undefined
   };
 
   window.HAL = HAL;

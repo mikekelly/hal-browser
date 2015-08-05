@@ -1,0 +1,169 @@
+= HAL-browser
+
+An API browser for the hal+json media type
+
+== Example Usage
+
+Here is an example of a hal+json API using the browser:
+
+http://haltalk.herokuapp.com/explorer/browser.html[http://haltalk.herokuapp.com/explorer/browser.html]
+
+== About HAL
+
+HAL is a format based on json that establishes conventions for
+representing links. For example:
+
+[source,javascript]
+----
+{
+    "_links": {
+        "self": { "href": "/orders" },
+        "next": { "href": "/orders?page=2" }
+    }
+}
+----
+
+More detail about HAL can be found at
+http://stateless.co/hal_specification.html[http://stateless.co/hal_specification.html].
+
+== Customizing the POST form
+
+By default, the HAL Browser can't assume there is any metadata. When you click on the non-GET request button (to create a new resource), the user must enter the JSON document to submit. If your service includes metadata you can access, it's possible to plugin a custom view that makes use of it.
+
+. Define your custom view.
++
+Here is an example that leverages Spring Data REST's JSON Schema metadata found at */{entity}/schema*.
++
+[source,javascript]
+----
+var CustomPostForm = Backbone.View.extend({
+	initialize: function (opts) {
+		this.href = opts.href.split('{')[0];
+		this.vent = opts.vent;
+		_.bindAll(this, 'createNewResource');
+	},
+
+	events: {
+		'submit form': 'createNewResource'
+	},
+
+	className: 'modal fade',
+
+	createNewResource: function (e) {
+		e.preventDefault();
+
+		var self = this;
+
+		var data = {}
+		Object.keys(this.schema.properties).forEach(function(property) {
+			if (!("format" in self.schema.properties[property])) {
+				data[property] = self.$('input[name=' + property + ']').val();
+			}
+		});
+
+		var opts = {
+			url: this.$('.url').val(),
+			headers: HAL.parseHeaders(this.$('.headers').val()),
+			method: this.$('.method').val(),
+			data: JSON.stringify(data)
+		};
+
+		var request = HAL.client.request(opts);
+		request.done(function (response) {
+			self.vent.trigger('response', {resource: response, jqxhr: jqxhr});
+		}).fail(function (response) {
+			self.vent.trigger('fail-response', {jqxhr: jqxhr});
+		}).always(function () {
+			self.vent.trigger('response-headers', {jqxhr: jqxhr});
+			window.location.hash = 'NON-GET:' + opts.url;
+		});
+
+		this.$el.modal('hide');
+	},
+
+	render: function (opts) {
+		var headers = HAL.client.getHeaders();
+		var headersString = '';
+
+		_.each(headers, function (value, name) {
+			headersString += name + ': ' + value + '\n';
+		});
+
+		var request = HAL.client.request({
+			url: this.href + '/schema',
+			method: 'GET'
+		});
+
+		var self = this;
+		request.done(function (schema) {
+			self.schema = schema;
+			self.$el.html(self.template({
+			    href: self.href,
+			    schema: self.schema,
+			    user_defined_headers: headersString}));
+			self.$el.modal();
+		});
+
+		return this;
+	},
+	template: _.template($('#dynamic-request-template').html())
+});
+----
++
+. Register it by assigning to `HAL.customPostForm`
++
+[source,javascript]
+----
+HAL.customPostForm = CustomPostForm;
+----
++
+. Load your custom JavaScript component and define your custom HTML template.
++
+[source,html,indent=0]
+----
+<script id="dynamic-request-template" type="text/template">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h3>Make a non-GET request</h3>
+</div>
+
+<form class="non-safe" action="<%= href %>">
+  <div class="modal-body">
+    <p>Target URI</p>
+    <input name="url" type="text" class="url" value="<%= href %>" />
+    <p>Method:</p>
+    <input name="method" type="text" class="method" value="POST" />
+    <p>Headers:</p>
+    <textarea name="headers" class="headers" style="height: 100px">
+    Content-Type: application/json
+    <%= user_defined_headers %>
+    </textarea>
+  </div>
+  <% _.each(schema.properties, function(value, name) { %>
+    <% if (!("format" in value)) { %>
+      <input type="text" placeholder="<%= name %>" name="<%= name %>" />
+    <% } %>
+  <% }); %>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Make Request</button>
+  </div>
+</form>
+</script>
+----
+
+NOTE: To load a custom JavaScript module AND a custom HTML template, you will probably need to create a customized version of `browser.html`.
+
+NOTE: The HAL Browser uses a global `HAL` object, so there is no need to deal with JavaScript packages.
+
+== Usage Instructions
+
+All you should need to do is copy the files into your webroot.
+It is OK to put it in a subdirectory; it does not need to be in the root.
+
+All the JS and CSS dependencies come included in the vendor directory.
+
+== TODO
+
+* Provide feedback to user when there are issues with response (missing
+self link, wrong media type identifier)
+* Give 'self' and 'curies' links special treatment

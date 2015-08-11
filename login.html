@@ -39,9 +39,10 @@
 	<script src="vendor/js/bootstrap.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("#login").click(function() {
+			$('#form-signin').submit(function(event){
+				event.preventDefault();
 				$.ajax({
-					url : '/oauth/token',
+					url : '../oauth/token',
 					type : 'POST',
 					async : false,
 					data : 'password='+$("#password").val()+'&username='+$("#username").val()+'&grant_type=password',
@@ -62,11 +63,11 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin">
+		<form class="form-signin" id="form-signin">
 			<h2 class="form-signin-heading">HAL Browser</h2>
 			<input type="text" class="input-block-level" placeholder="Username" id="username">
 			<input type="password" class="input-block-level" placeholder="Password" id="password">
-			<button type="button" class="btn btn-large btn-primary" id="login">Sign in</button>
+			<button type="submit" class="btn btn-large btn-primary" id="login">Sign in</button>
 		</form>
 	</div>
 </body>

@@ -55,7 +55,7 @@ body table.table {
 
 .ajax-loader {
   vertical-align: middle;
-  background-image: url("./vendor/img/ajax-loader.gif");
+  background-image: url("../../components/img/ajax-loader.gif");
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;

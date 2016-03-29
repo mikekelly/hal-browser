@@ -11,7 +11,7 @@ HAL.Http.Client.prototype.get = function(url) {
     url: url,
     dataType: 'json',
     xhrFields: {
-      withCredentials: true
+      withCredentials: false
     },
     headers: this.headers,
     success: function(resource, textStatus, jqXHR) {
@@ -30,7 +30,7 @@ HAL.Http.Client.prototype.request = function(opts) {
   var self = this;
   opts.dataType = 'json';
   opts.xhrFields = opts.xhrFields || {};
-  opts.xhrFields.withCredentials = opts.xhrFields.withCredentials || true;
+  opts.xhrFields.withCredentials = opts.xhrFields.withCredentials || false;
   self.vent.trigger('location-change', { url: opts.url });
   return jqxhr = $.ajax(opts);
 };

@@ -44,7 +44,7 @@
       if (!HAL.currentDocument._links) {
         return rel;
       }
-      if (!rel.match(urlRegex) && isCurie(rel) && HAL.currentDocument._links.curies) {
+      if (!rel.match(urlRegex) && HAL.isCurie(rel) && HAL.currentDocument._links.curies) {
         var parts = rel.split(':');
         var curies = HAL.currentDocument._links.curies;
         for (var i=0; i<curies.length; i++) {
@@ -54,7 +54,7 @@
           }
         }
       }
-      else if (!rel.match(urlRegex) && isCurie(rel) && HAL.currentDocument._links.curie) {
+      else if (!rel.match(urlRegex) && HAL.isCurie(rel) && HAL.currentDocument._links.curie) {
         // Backward compatibility with <04 version of spec.
         var tmpl = uritemplate(HAL.currentDocument._links.curie.href);
         return tmpl.expand({ rel: rel.split(':')[1] });

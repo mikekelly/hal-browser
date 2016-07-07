@@ -126,7 +126,7 @@
 <% _.each(headers, function(value, name) {
       %><%= _.escape(name) %>: <%
            if(HAL.isFollowableHeader(name)) {
-           %><a href="<%= HAL.normalizeUrl(_.escape(value)) %>" class="follow"><%
+           %><a href="<%= HAL.normalizeUrl(value) %>" class="follow"><%
            }
       %><%= _.escape(value)
       %><% if(HAL.isFollowableHeader(name)) {

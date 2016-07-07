@@ -292,6 +292,7 @@ HAL.Http.Client.prototype.getDefaultHeaders = function() {
         resourceViews = [],
         buildView = function(resource) {
           return new HAL.Views.EmbeddedResource({
+            index: index,
             resource: resource,
             vent: self.vent
           });
@@ -299,8 +300,8 @@ HAL.Http.Client.prototype.getDefaultHeaders = function() {
 
     _.each(resources, function(prop) {
       if ($.isArray(prop)) {
-        _.each(prop, function(resource) {
-          resourceViews.push(buildView(resource));
+        _.each(prop, function(resource, index) {
+          resourceViews.push(buildView(resource, index));
         });
       } else {
         resourceViews.push(buildView(prop));
@@ -399,7 +400,7 @@ HAL.Http.Client.prototype.getDefaultHeaders = function() {
   followLink: function(e) {
     e.preventDefault();
     var $target = $(e.currentTarget);
-    var uri = $target.attr('href');
+    var uri = URI($target.attr('href')).absoluteTo(window.location.hash.slice(1)).toString();
     window.location.hash = uri;
   },
 

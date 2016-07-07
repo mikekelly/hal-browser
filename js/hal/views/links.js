@@ -15,7 +15,7 @@ HAL.Views.Links = Backbone.View.extend({
   followLink: function(e) {
     e.preventDefault();
     var $target = $(e.currentTarget);
-    var uri = $target.attr('href');
+    var uri = URI($target.attr('href')).absoluteTo(window.location.hash.slice(1)).toString();
     window.location.hash = uri;
   },
 

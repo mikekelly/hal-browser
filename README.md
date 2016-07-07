@@ -31,6 +31,7 @@ As per the bower.json, you will need:
 * Bootstrap 3.0
 * Backbone 1.1
 * url-template 2.0
+* [URI.js] 1.12.0
 
 Instructions
 ============
@@ -57,3 +58,5 @@ TODO
 * Provide feedback to user when there are issues with response (missing
 self link, wrong media type identifier)
 * Give 'self' and 'curies' links special treatment
+
+[URI.js]: http://medialize.github.io/URI.js/

@@ -75,7 +75,8 @@ HAL.Views.Properties = Backbone.View.extend({
       }
       --indent;
       s += ']';
-    } else if(typeof value === "object") {
+    } else if(typeof value === "object" && value !== null) {
+      // typeof null is resolved as a object, but Object.keys(null) will raise exception
       s += '{\n';
       ++indent;
       var keys = Object.keys(value);
@@ -90,10 +91,12 @@ HAL.Views.Properties = Backbone.View.extend({
       }
       --indent;
       s += this._mkIndent(indent, space) + '}';
-    } else if(typeof value === "boolean" || typeof value === "number" || typeof value === "string") {
+    } else if(typeof value === "boolean" ||
+              typeof value === "number" ||
+              typeof value === "string" ||
+              (typeof value === "object" && value === null)) {
       s += _.escape(JSON.stringify(value, null, space));
-    }
-    
+    } 
     if(link) {
       s += "</a>";
     }

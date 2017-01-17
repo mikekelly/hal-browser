@@ -5,6 +5,7 @@ HAL.Views.Links = Backbone.View.extend({
 
   events: {
     'click .follow': 'followLink',
+    'click .follow-delete': 'followLinkDelete',
     'click .non-get': 'showNonSafeRequestDialog',
     'click .query': 'showUriQueryDialog',
     'click .dox': 'showDocs'
@@ -17,6 +18,23 @@ HAL.Views.Links = Backbone.View.extend({
     var $target = $(e.currentTarget);
     var uri = $target.attr('href');
     window.location.hash = uri;
+  },
+
+  followLinkDelete: function(e) {
+    e.preventDefault();
+    var self = this, opts = {
+      url: $(e.currentTarget).attr('href'),
+      method:  'DELETE'
+    };
+    var request = HAL.client.request(opts);
+    request.done(function(response) {
+      self.vent.trigger('response', { resource: response, jqxhr: jqxhr });
+    }).fail(function(response) {
+      self.vent.trigger('fail-response', { jqxhr: jqxhr });
+    }).always(function() {
+      self.vent.trigger('response-headers', { jqxhr: jqxhr });
+      window.location.hash = 'NON-GET:' + opts.url;
+    });
   },
 
   showUriQueryDialog: function(e) {

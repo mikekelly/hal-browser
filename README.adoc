@@ -151,9 +151,61 @@ HAL.customPostForm = CustomPostForm;
 </script>
 ----
 
-NOTE: To load a custom JavaScript module AND a custom HTML template, you will probably need to create a customized version of `browser.html`.
-
 NOTE: The HAL Browser uses a global `HAL` object, so there is no need to deal with JavaScript packages.
+
+=== Hooking in custom code
+
+To load a custom JavaScript module AND a custom HTML template, you will probably need to create a customized version of `browser.html`.  Manually editing the file might be good enough. Just look for the comment at the end of `browser.html`.
+
+But if you need something a little more sophisticated, like hooking into your build system, you can do a token search like this:
+
+[source,xml]
+----
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<executions>
+		<execution>
+			<phase>process-resources</phase>
+			<goals>
+				<goal>run</goal>
+			</goals>
+			<configuration>
+				<target>
+					<copy todir="${project.build.outputDirectory}/META-INF/spring-data-rest/hal-browser">
+						<fileset dir="${project.build.directory}/hal-browser/META-INF/resources/webjars/hal-browser/${browser.version}" />
+					</copy>
+					<copy todir="${project.build.outputDirectory}/META-INF/spring-data-rest/hal-browser/vendor/js">
+						<fileset dir="${project.build.directory}/json-editor/META-INF/resources/webjars/json-editor/${json-editor.version}" />
+					</copy>
+					<copy file="${project.build.outputDirectory}/META-INF/spring-data-rest/hal-browser/browser.html"
+						  tofile="${project.build.outputDirectory}/META-INF/spring-data-rest/hal-browser/index.html" />
+					<replace file="${project.build.outputDirectory}/META-INF/spring-data-rest/hal-browser/index.html">
+						<replacefilter>
+							<replacetoken>&lt;!-- Need to plugin some custom code? Put it here. --&gt;</replacetoken>
+							<replacevalue>
+
+  &lt;!-- Spring Data REST's plugin --&gt;
+
+  &lt;script src="vendor/js/jsoneditor.js" /&gt;
+  &lt;script src="js/CustomPostForm.js" /&gt;
+
+&lt;/body&gt;</replacevalue>
+						</replacefilter>
+					</replace>
+					<delete file="${project.build.outputDirectory}/META-INF/spring-data-rest/hal-browser/browser.html" />
+				</target>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+----
+
+This is code from http://projects.spring.io/spring-data-rest/[Spring Data REST]
+
+* The HAL Browser and the JSON Editor are both unpacked from WebJars
+* Key files are copied into the target artifacts.
+* The custom editor (driven by Spring Data REST's metadata) are then swapped in with a <<Customizing the POST form,custom form>>.
 
 == Usage Instructions
 

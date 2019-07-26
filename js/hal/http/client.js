@@ -22,9 +22,10 @@ HAL.Http.Client.prototype.get = function(url) {
         jqxhr: jqXHR,
         headers: jqXHR.getAllResponseHeaders()
       });
+    },
+    error: function() {
+      self.vent.trigger('fail-response', { jqxhr: jqxhr });
     }
-  }).error(function() {
-    self.vent.trigger('fail-response', { jqxhr: jqxhr });
   });
 };
 

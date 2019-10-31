@@ -7,7 +7,7 @@ HAL.Views.Browser = Backbone.View.extend({
     this.inspectorView = new HAL.Views.Inspector({ vent: this.vent });
   },
 
-  className: 'hal-browser row-fluid',
+  className: 'row',
 
   render: function() {
     this.$el.empty();

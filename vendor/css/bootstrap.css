@@ -5955,6 +5955,10 @@ a.badge:focus {
   cursor: pointer;
 }
 
+.accordion-body {
+    display: none;
+}
+
 .accordion-inner {
   padding: 9px 15px;
   border-top: 1px solid #e5e5e5;

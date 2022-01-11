@@ -23,7 +23,7 @@ HAL.Http.Client.prototype.get = function(url) {
         headers: jqXHR.getAllResponseHeaders()
       });
     }
-  }).error(function() {
+  }).fail(function() {
     self.vent.trigger('fail-response', { jqxhr: jqxhr });
   });
 };

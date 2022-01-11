@@ -1,0 +1,41 @@
+{
+  "consumer": {
+    "name": "Example App"
+  },
+  "provider": {
+    "name": "Example API"
+  },
+  "interactions": [
+    {
+      "_id": "ef69ceef4d7fb82af014da950a3d9028a905c4de",
+      "description": "a request for an alligator",
+      "providerState": "there is an alligator named Mary",
+      "request": {
+        "method": "get",
+        "path": "/alligators/Mary",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        "body": {
+          "name": "Mary"
+        },
+        "matchingRules": {
+          "$.body.name": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
